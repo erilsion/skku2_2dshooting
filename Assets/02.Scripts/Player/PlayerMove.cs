@@ -13,13 +13,14 @@ public class PlayerMove : MonoBehaviour
 
     // 필요 속성
     [Header("능력치")]
-    public float Speed = 3;   // 초당 3유닛(3칸) 이동
+    public float Speed = 3f;   // 초당 3유닛(3칸) 이동
 
     [Header("이동 제한 범위")]
     public float MinX = -2.5f;
     public float MaxX = 2.5f;
     public float MinY = -5f;
     public float MaxY = 0f;
+    public KeyCode Origin = KeyCode.R;   // R 누르면 원점으로 돌아가도록
 
     [Header("스피드 증감")]
     public float speedIncrease = 1f;
@@ -46,6 +47,25 @@ public class PlayerMove : MonoBehaviour
         // GetKeyDown: 키가 눌린 순간 1번만 감지
         // GetKeyUp: 키가 떼어진 순간 1번만 감지
 
+        // 쉬프트 누르는 동안 속도 증가
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            Speed = 6f;
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            Speed = 3f;
+        }
+
+        // Speed = Mathf.Clamp(Speed, minSpeed, maxSpeed); - 속도를 최소값과 최대값 사이로 반환해준다.
+        // float finalSpeed = Speed;
+        // if (Input.GetKey(KeyCode.LeftShift))
+        // {
+        //    finalSpeed = 2 * Speed;
+        // }
+
+
+        // 스피드 업 / 다운
         if (Input.GetKeyDown(speedUpKey))
         {
             Speed += speedIncrease;
@@ -63,10 +83,8 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-        // Speed = Mathf.Clamp(Speed, minSpeed, maxSpeed); // 속도를 최소값과 최대값 사이로 반환해준다.
-
-
         Debug.Log($"h: {h}, v: {v}");
+
 
         // 2. 입력으로부터 방향을 구한다.
         // 벡터: 크기와 방향을 표현하는 물리 개념
@@ -76,14 +94,20 @@ public class PlayerMove : MonoBehaviour
         // 방향을 크기 1로 만드는 정규화를 한다.
         direction.Normalize();  // direction = direction.normalized; 와 동일
 
+
         // 3. 그 방향으로 이동한다.
         Vector2 position = transform.position;  // 현재 위치
+
+        // 이동하는 쉬운 방법
+        // transform.Translate(direction * Speed * Time.deltaTime);
+
 
         // 새로운 위치 = 현재 위치 + (방향 * 속력) * 시간
         // 새로운 위치 = 현재 위치 + 속도 * 시간
 
         //      새로운 위치 = 현재 위치+   방향    *  속력
         Vector2 newPosition = position + direction * Speed * Time.deltaTime;  // 새로운 위치
+
 
         // Time: 시간을 담당하는 모듈
         // Time.deltaTime: 이전 프레임으로부터 현재 프레임까지 시간이 얼마나 흘렀는지 나타내는 값
@@ -94,6 +118,7 @@ public class PlayerMove : MonoBehaviour
         // 컴퓨터 2: 100FPS: Update가 초당 100번 실행 -> 10 * 100 = 1000  * Time.deltaTime 이동, 확대축소 등 실시간 관련은 다 써줘야한다.
 
         // 1, 0, -1, 0.0000001 이 숫자 말고는 다 매직넘버다. 변수로 빼야한다.
+
 
         // 포지션 값에 제한을 둔다.
         if (newPosition.x > MaxX)
