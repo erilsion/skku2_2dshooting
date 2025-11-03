@@ -42,14 +42,28 @@ public class PlayerMove : MonoBehaviour
         // float h = Input.GetAxisRaw("Horizontal"); 로 하면 천천히 가속되는게 아니라 바로 1이나 -1로 감지된다.
 
 
-        if (Input.GetKey(speedUpKey))
+        // GetKey: 키가 눌려있는지 계속 감지
+        // GetKeyDown: 키가 눌린 순간 1번만 감지
+        // GetKeyUp: 키가 떼어진 순간 1번만 감지
+
+        if (Input.GetKeyDown(speedUpKey))
         {
-            Speed += speedIncrease * Time.deltaTime;
+            Speed += speedIncrease;
+            if (Speed > maxSpeed)
+            {
+                Speed = maxSpeed;
+            }
         }
-        if (Input.GetKey(speedDownKey))
+        if (Input.GetKeyDown(speedDownKey))
         {
-            Speed += speedDecrease * Time.deltaTime;
+            Speed += speedDecrease;
+            if (Speed < minSpeed)
+            {
+                Speed = minSpeed;
+            }
         }
+
+        // Speed = Mathf.Clamp(Speed, minSpeed, maxSpeed); // 속도를 최소값과 최대값 사이로 반환해준다.
 
 
         Debug.Log($"h: {h}, v: {v}");
@@ -97,15 +111,6 @@ public class PlayerMove : MonoBehaviour
         else if (newPosition.y < MinY)
         {
             newPosition.y = MinY;
-        }
-
-        if (Speed > maxSpeed)
-        {
-            Speed = maxSpeed;
-        }
-        else if (Speed < minSpeed)
-        {
-            Speed = minSpeed;
         }
 
         transform.position = newPosition;       // 새로운 위치로 갱신
