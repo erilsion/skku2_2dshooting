@@ -16,8 +16,8 @@ public class PlayerMove : MonoBehaviour
     public float Speed = 3;   // 초당 3유닛(3칸) 이동
 
     [Header("이동 제한 범위")]
-    public float MinX = -2f;
-    public float MaxX = 2f;
+    public float MinX = -2.5f;
+    public float MaxX = 2.5f;
     public float MinY = -5f;
     public float MaxY = 0f;
 
@@ -35,8 +35,11 @@ public class PlayerMove : MonoBehaviour
     {
         // 1. 키보드 입력을 감지한다.
         // 유니티에서는 Input이라는 모듈이 입력에 관한 모든 것을 담당한다. (버튼을 눌렀냐, 키보드를 입력했냐)
-        float h = Input.GetAxis("Horizontal"); // 수평 입력에 대한 값을 -1 ~ 0 ~ 1로 가져온다.
+        float h = Input.GetAxis("Horizontal"); // 수평 입력에 대한 값을 -1 ~ 0 ~ 1로 가져온다. (가속도 존재)
         float v = Input.GetAxis("Vertical"); // 수직 입력에 대한 값을 -1 ~ 0 ~ 1로 가져온다.
+
+        // Input.GetAxisRaw: 딜레이 없이 바로 반응 (가속도 X)
+        // float h = Input.GetAxisRaw("Horizontal"); 로 하면 천천히 가속되는게 아니라 바로 1이나 -1로 감지된다.
 
 
         if (Input.GetKey(speedUpKey))
@@ -55,6 +58,9 @@ public class PlayerMove : MonoBehaviour
         // 벡터: 크기와 방향을 표현하는 물리 개념
         Vector2 direction = new Vector2(h, v);  // Vector2는 x, y만, Vector3는 z까지 포함
         Debug.Log($"direction: {direction.x}, {direction.y}");
+
+        // 방향을 크기 1로 만드는 정규화를 한다.
+        direction.Normalize();  // direction = direction.normalized; 와 동일
 
         // 3. 그 방향으로 이동한다.
         Vector2 position = transform.position;  // 현재 위치
@@ -78,11 +84,11 @@ public class PlayerMove : MonoBehaviour
         // 포지션 값에 제한을 둔다.
         if (newPosition.x > MaxX)
         {
-            newPosition.x = MaxX;
+            newPosition.x = MinX;
         }
         else if (newPosition.x < MinX)
         {
-            newPosition.x = MinX;
+            newPosition.x = MaxX;
         }
         if (newPosition.y > MaxY)
         {
@@ -101,7 +107,6 @@ public class PlayerMove : MonoBehaviour
         {
             Speed = minSpeed;
         }
-
 
         transform.position = newPosition;       // 새로운 위치로 갱신
 
