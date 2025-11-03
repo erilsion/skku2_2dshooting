@@ -12,13 +12,22 @@ public class PlayerMove : MonoBehaviour
     // 3. 이동
 
     // 필요 속성
+    [Header("능력치")]
     public float Speed = 3;   // 초당 3유닛(3칸) 이동
+
+    [Header("이동 제한 범위")]
     public float MinX = -2f;
     public float MaxX = 2f;
     public float MinY = -5f;
     public float MaxY = 0f;
+
+    [Header("스피드 증감")]
     public float speedIncrease = 1f;
     public float speedDecrease = -1f;
+    public KeyCode speedUpKey = KeyCode.Q;
+    public KeyCode speedDownKey = KeyCode.E;
+    public float maxSpeed = 10f;
+    public float minSpeed = 1f;
 
 
     // 게임 오브젝트가 게임을 시작한 후 최대한 많이
@@ -29,7 +38,18 @@ public class PlayerMove : MonoBehaviour
         float h = Input.GetAxis("Horizontal"); // 수평 입력에 대한 값을 -1 ~ 0 ~ 1로 가져온다.
         float v = Input.GetAxis("Vertical"); // 수직 입력에 대한 값을 -1 ~ 0 ~ 1로 가져온다.
 
-            Debug.Log($"h: {h}, v: {v}");
+
+        if (Input.GetKey(speedUpKey))
+        {
+            Speed += speedIncrease * Time.deltaTime;
+        }
+        if (Input.GetKey(speedDownKey))
+        {
+            Speed += speedDecrease * Time.deltaTime;
+        }
+
+
+        Debug.Log($"h: {h}, v: {v}");
 
         // 2. 입력으로부터 방향을 구한다.
         // 벡터: 크기와 방향을 표현하는 물리 개념
@@ -72,6 +92,16 @@ public class PlayerMove : MonoBehaviour
         {
             newPosition.y = MinY;
         }
+
+        if (Speed > maxSpeed)
+        {
+            Speed = maxSpeed;
+        }
+        else if (Speed < minSpeed)
+        {
+            Speed = minSpeed;
+        }
+
 
         transform.position = newPosition;       // 새로운 위치로 갱신
 
