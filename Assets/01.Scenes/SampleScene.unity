@@ -441,6 +441,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 3
+  MinX: -2
+  MaxX: 2
+  MinY: -5
+  MaxY: 0
+  speedIncrease: 1
+  speedDecrease: -1
+  speedUpKey: 113
+  speedDownKey: 101
+  GoBack: 114
+  maxSpeed: 10
+  minSpeed: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
