@@ -1,39 +1,40 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
-// ÇÃ·¹ÀÌ¾î ÀÌµ¿
+// í”Œë ˆì´ì–´ ì´ë™
 public class PlayerMove : MonoBehaviour
 {
-    // ¸ñÇ¥
-    // "Å°º¸µå ÀÔ·Â"¿¡ µû¶ó "¹æÇâ"À» ±¸ÇÏ°í ±× ¹æÇâÀ¸·Î "ÀÌµ¿"½ÃÅ°°í ½Í´Ù.
+    // ëª©í‘œ
+    // "í‚¤ë³´ë“œ ì…ë ¥"ì— ë”°ë¼ "ë°©í–¥"ì„ êµ¬í•˜ê³  ê·¸ ë°©í–¥ìœ¼ë¡œ "ì´ë™"ì‹œí‚¤ê³  ì‹¶ë‹¤.
 
-    // ±¸Çö ¼ø¼­
-    // 1. Å°º¸µå ÀÔ·Â
-    // 2. ¹æÇâ ±¸ÇÏ´Â ¹æ¹ı
-    // 3. ÀÌµ¿
-
-    // ÇÊ¿ä ¼Ó¼º
-    [Header("´É·ÂÄ¡")]
-    public float Speed = 3f;   // ÃÊ´ç 3À¯´Ö(3Ä­) ÀÌµ¿
+    // êµ¬í˜„ ìˆœì„œ
+    // 1. í‚¤ë³´ë“œ ì…ë ¥
+    // 2. ë°©í–¥ êµ¬í•˜ëŠ” ë°©ë²•
+    // 3. ì´ë™
 
 
-    [Header("ÀÌµ¿ Á¦ÇÑ ¹üÀ§")]
+    // í•„ìš” ì†ì„±
+    [Header("ëŠ¥ë ¥ì¹˜")]
+    public float Speed = 3f;   // ì´ˆë‹¹ 3ìœ ë‹›(3ì¹¸) ì´ë™
+
+
+    [Header("ì´ë™ ì œí•œ ë²”ìœ„")]
     public float MinX = -2.5f;
     public float MaxX = 2.5f;
     public float MinY = -5f;
     public float MaxY = 0f;
 
 
-    [Header("½ÃÀÛÀ§Ä¡")]
-    private Vector3 _originPosition;  // Àº´ĞÈ­-prvate·Î ÇØÁØ´Ù.
+    [Header("ì‹œì‘ìœ„ì¹˜")]
+    private Vector3 _originPosition;  // ì€ë‹‰í™”-prvateë¡œ í•´ì¤€ë‹¤.
 
     private void Start()
     {
-        // Ã³À½ ½ÃÀÛ À§Ä¡ ÀúÀå
+        // ì²˜ìŒ ì‹œì‘ ìœ„ì¹˜ ì €ì¥
         _originPosition = transform.position;
     }
 
 
-    [Header("½ºÇÇµå Áõ°¨")]
+    [Header("ìŠ¤í”¼ë“œ ì¦ê°")]
     public float speedIncrease = 1f;
     public float speedDecrease = -1f;
     public KeyCode speedUpKey = KeyCode.Q;
@@ -43,17 +44,14 @@ public class PlayerMove : MonoBehaviour
     public float minSpeed = 1f;
 
 
-    // °ÔÀÓ ¿ÀºêÁ§Æ®°¡ °ÔÀÓÀ» ½ÃÀÛÇÑ ÈÄ ÃÖ´ëÇÑ ¸¹ÀÌ
+    // ê²Œì„ ì˜¤ë¸Œì íŠ¸ê°€ ê²Œì„ì„ ì‹œì‘í•œ í›„ ìµœëŒ€í•œ ë§ì´
     private void Update()
     {
+        // GetKey: í‚¤ê°€ ëˆŒë ¤ìˆëŠ”ì§€ ê³„ì† ê°ì§€
+        // GetKeyDown: í‚¤ê°€ ëˆŒë¦° ìˆœê°„ 1ë²ˆë§Œ ê°ì§€
+        // GetKeyUp: í‚¤ê°€ ë–¼ì–´ì§„ ìˆœê°„ 1ë²ˆë§Œ ê°ì§€
 
-
-
-        // GetKey: Å°°¡ ´­·ÁÀÖ´ÂÁö °è¼Ó °¨Áö
-        // GetKeyDown: Å°°¡ ´­¸° ¼ø°£ 1¹ø¸¸ °¨Áö
-        // GetKeyUp: Å°°¡ ¶¼¾îÁø ¼ø°£ 1¹ø¸¸ °¨Áö
-
-        // ½¬ÇÁÆ® ´©¸£´Â µ¿¾È ¼Óµµ Áõ°¡
+        // ì‰¬í”„íŠ¸ ëˆ„ë¥´ëŠ” ë™ì•ˆ ì†ë„ ì¦ê°€
         if (Input.GetKey(KeyCode.LeftShift))
         {
             Speed = 6f;
@@ -69,7 +67,7 @@ public class PlayerMove : MonoBehaviour
             return;
         }
 
-        // Speed = Mathf.Clamp(Speed, minSpeed, maxSpeed); - ¼Óµµ¸¦ ÃÖ¼Ò°ª°ú ÃÖ´ë°ª »çÀÌ·Î ¹İÈ¯ÇØÁØ´Ù.
+        // Speed = Mathf.Clamp(Speed, minSpeed, maxSpeed); - ì†ë„ë¥¼ ìµœì†Œê°’ê³¼ ìµœëŒ€ê°’ ì‚¬ì´ë¡œ ë°˜í™˜í•´ì¤€ë‹¤.
         // float finalSpeed = Speed;
         // if (Input.GetKey(KeyCode.LeftShift))
         // {
@@ -77,7 +75,7 @@ public class PlayerMove : MonoBehaviour
         // }
 
 
-        // ½ºÇÇµå ¾÷ / ´Ù¿î
+        // ìŠ¤í”¼ë“œ ì—… / ë‹¤ìš´
         if (Input.GetKeyDown(speedUpKey))
         {
             Speed += speedIncrease;
@@ -97,52 +95,52 @@ public class PlayerMove : MonoBehaviour
 
         
 
-        // 1. Å°º¸µå ÀÔ·ÂÀ» °¨ÁöÇÑ´Ù.
-        // À¯´ÏÆ¼¿¡¼­´Â InputÀÌ¶ó´Â ¸ğµâÀÌ ÀÔ·Â¿¡ °üÇÑ ¸ğµç °ÍÀ» ´ã´çÇÑ´Ù. (¹öÆ°À» ´­·¶³Ä, Å°º¸µå¸¦ ÀÔ·ÂÇß³Ä)
-        float h = Input.GetAxis("Horizontal"); // ¼öÆò ÀÔ·Â¿¡ ´ëÇÑ °ªÀ» -1 ~ 0 ~ 1·Î °¡Á®¿Â´Ù. (°¡¼Óµµ Á¸Àç)
-        float v = Input.GetAxis("Vertical"); // ¼öÁ÷ ÀÔ·Â¿¡ ´ëÇÑ °ªÀ» -1 ~ 0 ~ 1·Î °¡Á®¿Â´Ù.
+        // 1. í‚¤ë³´ë“œ ì…ë ¥ì„ ê°ì§€í•œë‹¤.
+        // ìœ ë‹ˆí‹°ì—ì„œëŠ” Inputì´ë¼ëŠ” ëª¨ë“ˆì´ ì…ë ¥ì— ê´€í•œ ëª¨ë“  ê²ƒì„ ë‹´ë‹¹í•œë‹¤. (ë²„íŠ¼ì„ ëˆŒë €ëƒ, í‚¤ë³´ë“œë¥¼ ì…ë ¥í–ˆëƒ)
+        float h = Input.GetAxis("Horizontal"); // ìˆ˜í‰ ì…ë ¥ì— ëŒ€í•œ ê°’ì„ -1 ~ 0 ~ 1ë¡œ ê°€ì ¸ì˜¨ë‹¤. (ê°€ì†ë„ ì¡´ì¬)
+        float v = Input.GetAxis("Vertical"); // ìˆ˜ì§ ì…ë ¥ì— ëŒ€í•œ ê°’ì„ -1 ~ 0 ~ 1ë¡œ ê°€ì ¸ì˜¨ë‹¤.
 
 
 
-        // Input.GetAxisRaw: µô·¹ÀÌ ¾øÀÌ ¹Ù·Î ¹İÀÀ (°¡¼Óµµ X)
-        // float h = Input.GetAxisRaw("Horizontal"); ·Î ÇÏ¸é ÃµÃµÈ÷ °¡¼ÓµÇ´Â°Ô ¾Æ´Ï¶ó ¹Ù·Î 1ÀÌ³ª -1·Î °¨ÁöµÈ´Ù.
+        // Input.GetAxisRaw: ë”œë ˆì´ ì—†ì´ ë°”ë¡œ ë°˜ì‘ (ê°€ì†ë„ X)
+        // float h = Input.GetAxisRaw("Horizontal"); ë¡œ í•˜ë©´ ì²œì²œíˆ ê°€ì†ë˜ëŠ”ê²Œ ì•„ë‹ˆë¼ ë°”ë¡œ 1ì´ë‚˜ -1ë¡œ ê°ì§€ëœë‹¤.
 
 
-        // 2. ÀÔ·ÂÀ¸·ÎºÎÅÍ ¹æÇâÀ» ±¸ÇÑ´Ù.
-        // º¤ÅÍ: Å©±â¿Í ¹æÇâÀ» Ç¥ÇöÇÏ´Â ¹°¸® °³³ä
-        Vector2 direction = new Vector2(h, v);  // Vector2´Â x, y¸¸, Vector3´Â z±îÁö Æ÷ÇÔ
+        // 2. ì…ë ¥ìœ¼ë¡œë¶€í„° ë°©í–¥ì„ êµ¬í•œë‹¤.
+        // ë²¡í„°: í¬ê¸°ì™€ ë°©í–¥ì„ í‘œí˜„í•˜ëŠ” ë¬¼ë¦¬ ê°œë…
+        Vector2 direction = new Vector2(h, v);  // Vector2ëŠ” x, yë§Œ, Vector3ëŠ” zê¹Œì§€ í¬í•¨
         Debug.Log($"direction: {direction.x}, {direction.y}");
 
-        // ¹æÇâÀ» Å©±â 1·Î ¸¸µå´Â Á¤±ÔÈ­¸¦ ÇÑ´Ù.
-        direction.Normalize();  // direction = direction.normalized; ¿Í µ¿ÀÏ
+        // ë°©í–¥ì„ í¬ê¸° 1ë¡œ ë§Œë“œëŠ” ì •ê·œí™”ë¥¼ í•œë‹¤.
+        direction.Normalize();  // direction = direction.normalized; ì™€ ë™ì¼
 
 
-        // 3. ±× ¹æÇâÀ¸·Î ÀÌµ¿ÇÑ´Ù.
-        Vector2 position = transform.position;  // ÇöÀç À§Ä¡
+        // 3. ê·¸ ë°©í–¥ìœ¼ë¡œ ì´ë™í•œë‹¤.
+        Vector2 position = transform.position;  // í˜„ì¬ ìœ„ì¹˜
 
-        // ÀÌµ¿ÇÏ´Â ½¬¿î ¹æ¹ı
+        // ì´ë™í•˜ëŠ” ì‰¬ìš´ ë°©ë²•
         // transform.Translate(direction * Speed * Time.deltaTime);
 
 
-        // »õ·Î¿î À§Ä¡ = ÇöÀç À§Ä¡ + (¹æÇâ * ¼Ó·Â) * ½Ã°£
-        // »õ·Î¿î À§Ä¡ = ÇöÀç À§Ä¡ + ¼Óµµ * ½Ã°£
+        // ìƒˆë¡œìš´ ìœ„ì¹˜ = í˜„ì¬ ìœ„ì¹˜ + (ë°©í–¥ * ì†ë ¥) * ì‹œê°„
+        // ìƒˆë¡œìš´ ìœ„ì¹˜ = í˜„ì¬ ìœ„ì¹˜ + ì†ë„ * ì‹œê°„
 
-        //      »õ·Î¿î À§Ä¡ = ÇöÀç À§Ä¡+   ¹æÇâ    *  ¼Ó·Â
-        Vector2 newPosition = position + direction * Speed * Time.deltaTime;  // »õ·Î¿î À§Ä¡
-
-
-        // Time: ½Ã°£À» ´ã´çÇÏ´Â ¸ğµâ
-        // Time.deltaTime: ÀÌÀü ÇÁ·¹ÀÓÀ¸·ÎºÎÅÍ ÇöÀç ÇÁ·¹ÀÓ±îÁö ½Ã°£ÀÌ ¾ó¸¶³ª Èê·¶´ÂÁö ³ªÅ¸³»´Â °ª
-        // ¤¤ 1 / fps °ª°ú ºñ½ÁÇÏ±â¿¡ ÄÄÇ»ÅÍ »ç¾ç¿¡ °ü°è ¾øÀÌ ÀÏÁ¤ÇÑ ¼Óµµ·Î ¿òÁ÷ÀÌ°Ô ÇØÁØ´Ù.
-
-        // ÀÌµ¿¼Óµµ°¡ 10ÀÏ¶§
-        // ÄÄÇ»ÅÍ 1: 50FPS: Update°¡ ÃÊ´ç 50¹ø ½ÇÇà -> 10 * 50 = 500      * Time.deltaTime = µÎ °ªÀÌ °°¾ÆÁø´Ù.
-        // ÄÄÇ»ÅÍ 2: 100FPS: Update°¡ ÃÊ´ç 100¹ø ½ÇÇà -> 10 * 100 = 1000  * Time.deltaTime ÀÌµ¿, È®´ëÃà¼Ò µî ½Ç½Ã°£ °ü·ÃÀº ´Ù ½áÁà¾ßÇÑ´Ù.
-
-        // 1, 0, -1, 0.0000001 ÀÌ ¼ıÀÚ ¸»°í´Â ´Ù ¸ÅÁ÷³Ñ¹ö´Ù. º¯¼ö·Î »©¾ßÇÑ´Ù.
+        //      ìƒˆë¡œìš´ ìœ„ì¹˜ = í˜„ì¬ ìœ„ì¹˜+   ë°©í–¥    *  ì†ë ¥
+        Vector2 newPosition = position + direction * Speed * Time.deltaTime;  // ìƒˆë¡œìš´ ìœ„ì¹˜
 
 
-        // Æ÷Áö¼Ç °ª¿¡ Á¦ÇÑÀ» µĞ´Ù.
+        // Time: ì‹œê°„ì„ ë‹´ë‹¹í•˜ëŠ” ëª¨ë“ˆ
+        // Time.deltaTime: ì´ì „ í”„ë ˆì„ìœ¼ë¡œë¶€í„° í˜„ì¬ í”„ë ˆì„ê¹Œì§€ ì‹œê°„ì´ ì–¼ë§ˆë‚˜ í˜ë €ëŠ”ì§€ ë‚˜íƒ€ë‚´ëŠ” ê°’
+        // ã„´ 1 / fps ê°’ê³¼ ë¹„ìŠ·í•˜ê¸°ì— ì»´í“¨í„° ì‚¬ì–‘ì— ê´€ê³„ ì—†ì´ ì¼ì •í•œ ì†ë„ë¡œ ì›€ì§ì´ê²Œ í•´ì¤€ë‹¤.
+
+        // ì´ë™ì†ë„ê°€ 10ì¼ë•Œ
+        // ì»´í“¨í„° 1: 50FPS: Updateê°€ ì´ˆë‹¹ 50ë²ˆ ì‹¤í–‰ -> 10 * 50 = 500      * Time.deltaTime = ë‘ ê°’ì´ ê°™ì•„ì§„ë‹¤.
+        // ì»´í“¨í„° 2: 100FPS: Updateê°€ ì´ˆë‹¹ 100ë²ˆ ì‹¤í–‰ -> 10 * 100 = 1000  * Time.deltaTime ì´ë™, í™•ëŒ€ì¶•ì†Œ ë“± ì‹¤ì‹œê°„ ê´€ë ¨ì€ ë‹¤ ì¨ì¤˜ì•¼í•œë‹¤.
+
+        // 1, 0, -1, 0.0000001 ì´ ìˆ«ì ë§ê³ ëŠ” ë‹¤ ë§¤ì§ë„˜ë²„ë‹¤. ë³€ìˆ˜ë¡œ ë¹¼ì•¼í•œë‹¤.
+
+
+        // í¬ì§€ì…˜ ê°’ì— ì œí•œì„ ë‘”ë‹¤.
         if (newPosition.x > MaxX)
         {
             newPosition.x = MinX;
@@ -160,16 +158,16 @@ public class PlayerMove : MonoBehaviour
             newPosition.y = MinY;
         }
 
-        transform.position = newPosition;       // »õ·Î¿î À§Ä¡·Î °»½Å
+        transform.position = newPosition;       // ìƒˆë¡œìš´ ìœ„ì¹˜ë¡œ ê°±ì‹ 
 
     }
 
     private void TranslateToOrigin()
     {
-        // 1. ÀÔ·ÂÀ» ¹Ş´Â´Ù.
-        // 2. ¹æÇâÀ» ±¸ÇÑ´Ù.
+        // 1. ì…ë ¥ì„ ë°›ëŠ”ë‹¤.
+        // 2. ë°©í–¥ì„ êµ¬í•œë‹¤.
         Vector2 direction = _originPosition - transform.position;
-        // 3. ÀÌµ¿À» ÇÑ´Ù.
+        // 3. ì´ë™ì„ í•œë‹¤.
         transform.Translate(translation: direction * Speed * Time.deltaTime);
     }
 }

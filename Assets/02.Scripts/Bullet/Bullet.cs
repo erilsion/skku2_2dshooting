@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
     public float StartSpeed = 1f;
     public float EndSpeed = 7f;
     private float _Speed;
-    public float Acceleration = 1.2f;
+    public float Duration = 1.2f;   // 마지막 속도에 도달하는 시간(초)
 
     private void Start()
     {
@@ -14,12 +14,18 @@ public class Bullet : MonoBehaviour
     }
     private void Update()
     {
-        _Speed += Acceleration * Time.deltaTime;
+        // 목표: Duration 안에 EndSpeed에 도달하고 싶다.
 
-        if (_Speed > EndSpeed)
-        {
-            _Speed = EndSpeed;
-        }
+        float Acceleration = (EndSpeed - StartSpeed) / Duration;  // 가속도
+
+        _Speed += Time.deltaTime * Acceleration;   // 초당 + 1 * 가속도
+        
+
+        _Speed = Mathf.Min(_Speed, EndSpeed);  // 아래 주석과 같은 뜻이다.
+        // if (_Speed > EndSpeed)
+        // {
+        //     _Speed = EndSpeed;
+        // }
 
 
         // 방향을 구한다.
