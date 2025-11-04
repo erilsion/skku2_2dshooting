@@ -7,11 +7,14 @@ public class PlayerFire : MonoBehaviour
     // 필요 속성
     [Header("총알 프리팹")]
     public GameObject BulletPrefab;
+    public GameObject MiniBullet1Prefab;
+    public GameObject MiniBullet2Prefab;
 
 
     [Header("총구")]
     public Transform FirePosition;
-    public Vector3 TwoBullet = new Vector2(1, 0);
+    public Vector3 TwoBullet = new Vector2(0.5f, 0);
+    public Vector3 MiniBulletOffset = new Vector2(-1f, 0);
 
 
     [Header("쿨타임")]
@@ -56,11 +59,15 @@ public class PlayerFire : MonoBehaviour
             // 클래스 -> 객체(속성+기능) -> 메모리에 로드된 객체를 인스턴스 => 인스턴스화
             GameObject bullet1 = Instantiate(BulletPrefab);
             GameObject bullet2 = Instantiate(BulletPrefab);
+            GameObject Minibullet1 = Instantiate(MiniBullet1Prefab);
+            GameObject Minibullet2 = Instantiate(MiniBullet2Prefab);
 
 
             // 3. 총알 생성 후 위치를 플레이어 위치로 수정한다.
             bullet1.transform.position = FirePosition.position + TwoBullet;
             bullet2.transform.position = FirePosition.position - TwoBullet;
+            Minibullet1.transform.position = transform.position + MiniBulletOffset;
+            Minibullet2.transform.position = transform.position - MiniBulletOffset;
 
 
             // 4. 쿨타임 초기화
@@ -73,11 +80,13 @@ public class PlayerFire : MonoBehaviour
         {
             GameObject bullet1 = Instantiate(BulletPrefab);
             GameObject bullet2 = Instantiate(BulletPrefab);
-
+            GameObject Minibullet1 = Instantiate(MiniBullet1Prefab);
+            GameObject Minibullet2 = Instantiate(MiniBullet2Prefab);
 
             bullet1.transform.position = FirePosition.position + TwoBullet;
             bullet2.transform.position = FirePosition.position - TwoBullet;
-
+            Minibullet1.transform.position = transform.position + MiniBulletOffset;
+            Minibullet2.transform.position = transform.position - MiniBulletOffset;
 
             _fireTimer = 0f;
         }

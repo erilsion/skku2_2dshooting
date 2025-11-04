@@ -498,7 +498,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 6412167869773182766, guid: c3c19eb0454743c418af6abdc4b5ecf7, type: 3}
+  MiniBullet1Prefab: {fileID: 3762592075760517474, guid: ba0f01bcfad7e5142af32b04a5b041d3, type: 3}
+  MiniBullet2Prefab: {fileID: 320124065123496355, guid: 5fe9dcda5e95078429947a6c538ac510, type: 3}
   FirePosition: {fileID: 661345152}
+  TwoBullet: {x: 0.5, y: 0, z: 0}
+  MiniBulletOffset: {x: -1, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
