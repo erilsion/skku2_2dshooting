@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using Unity.VisualScripting;
+using UnityEngine;
 
 public class PlayerFire : MonoBehaviour
 {
-    // 목표: 스페이스바를 누르면 총알을 만들어서 발사하고 싶다.
-
     // 필요 속성
-    [Header("총알 프리팹")]  // 복사해올 총알 프리팹 게임 오브젝트
+    [Header("총알 프리팹")]
     public GameObject BulletPrefab;
 
 
@@ -21,16 +21,33 @@ public class PlayerFire : MonoBehaviour
 
     [Header("자동 / 수동 공격")]
     private KeyCode AutoAtteck = KeyCode.Keypad1;
+    private KeyCode AutoAtteck2 = KeyCode.Alpha1;
     private KeyCode NotAutoAtteck = KeyCode.Keypad2;
+    private KeyCode NotAutoAtteck2 = KeyCode.Alpha2;
+    private bool isAutoAtteck = true;
 
 
     private void Update()
     {
         _fireTimer += Time.deltaTime;
-        if (Input.GetKeyDown())
-        {
 
+        switch (Input.GetKeyDown(AutoAtteck) || Input.GetKeyDown(AutoAtteck2))
+        {
+            case true:
+                isAutoAtteck = true;
+                break;
+            case false when Input.GetKeyDown(NotAutoAtteck) || Input.GetKeyDown(NotAutoAtteck2):
+                isAutoAtteck = false;
+                break;
+            case false:
+                break;
         }
+
+        if (isAutoAtteck == true)
+        {
+            AutoFireOn();
+        }
+
         // 1. 발사 버튼을 누르고 있으면
         if (Input.GetKey(KeyCode.Space) && _fireTimer > FireCooldown)
         {
@@ -47,6 +64,21 @@ public class PlayerFire : MonoBehaviour
 
 
             // 4. 쿨타임 초기화
+            _fireTimer = 0f;
+        }
+    }
+    public void AutoFireOn()
+    {
+        if (_fireTimer > FireCooldown)
+        {
+            GameObject bullet1 = Instantiate(BulletPrefab);
+            GameObject bullet2 = Instantiate(BulletPrefab);
+
+
+            bullet1.transform.position = FirePosition.position + TwoBullet;
+            bullet2.transform.position = FirePosition.position - TwoBullet;
+
+
             _fireTimer = 0f;
         }
     }
