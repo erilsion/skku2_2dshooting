@@ -109,7 +109,7 @@ public class PlayerMove : MonoBehaviour
         // 2. 입력으로부터 방향을 구한다.
         // 벡터: 크기와 방향을 표현하는 물리 개념
         Vector2 direction = new Vector2(h, v);  // Vector2는 x, y만, Vector3는 z까지 포함
-        Debug.Log($"direction: {direction.x}, {direction.y}");
+
 
         // 방향을 크기 1로 만드는 정규화를 한다.
         direction.Normalize();  // direction = direction.normalized; 와 동일
