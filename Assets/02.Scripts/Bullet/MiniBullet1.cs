@@ -34,15 +34,12 @@ public class MiniBullet1 : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy") == false) return;
 
-        GameObject enemyGameObject = other.gameObject;        // 적 오브젝트 지정
-        Enemy enemy = enemyGameObject.GetComponent<Enemy>();  // Enemy 스크립트 컴포넌트 가져오기
-        // Enemy enemy = other.gameObject.GetComponent<Enemy>(); 로 줄여 쓸 수 있다.
+        Enemy enemy = other.gameObject.GetComponent<Enemy>();
 
         enemy.Health -= 40f;
+        Debug.Log("적에게 40 대미지!");
 
         if (enemy.Health > 0f) return;
-        Destroy(this.gameObject);
         Destroy(other.gameObject);
-
     }
 }

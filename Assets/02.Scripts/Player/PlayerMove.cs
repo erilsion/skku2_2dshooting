@@ -15,6 +15,7 @@ public class PlayerMove : MonoBehaviour
     // 필요 속성
     [Header("능력치")]
     public float Speed = 3f;   // 초당 3유닛(3칸) 이동
+    public float Health = 3f;
 
 
     [Header("이동 제한 범위")]

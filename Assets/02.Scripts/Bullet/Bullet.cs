@@ -49,9 +49,9 @@ public class Bullet : MonoBehaviour
         // Enemy enemy = other.gameObject.GetComponent<Enemy>(); 로 줄여 쓸 수 있다.
 
         enemy.Health -= 60f;
+        Debug.Log("적에게 60 대미지!");
 
         if (enemy.Health > 0f) return;
-        Destroy(this.gameObject);
         Destroy(other.gameObject);
 
     }
