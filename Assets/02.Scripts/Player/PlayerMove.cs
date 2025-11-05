@@ -21,7 +21,7 @@ public class PlayerMove : MonoBehaviour
     public float MinX = -2.5f;
     public float MaxX = 2.5f;
     public float MinY = -5f;
-    public float MaxY = 0f;
+    public float MaxY = -2f;
 
 
     [Header("시작위치")]

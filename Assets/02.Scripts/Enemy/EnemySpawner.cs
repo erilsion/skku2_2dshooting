@@ -6,7 +6,7 @@ public class EnemySpawner : MonoBehaviour
 {
     [Header("적 프리팹")]
     public GameObject EnemyPrefab;
-    public Transform EnemySpawnerPosition;
+    public Transform SpawnerPosition;
 
     [Header("쿨타임")]
     private float _Timer = 0f;
@@ -26,7 +26,7 @@ public class EnemySpawner : MonoBehaviour
         if (_Timer <= _Cooltime) return;
 
         GameObject enemy = Instantiate(EnemyPrefab);
-        enemy.transform.position = EnemySpawnerPosition.position;
+        enemy.transform.position = SpawnerPosition.position;
 
         // Instantiate(EnemyPrefab, EnemySpawnerPosition.position); <= 한 줄로 요약
 
@@ -36,5 +36,8 @@ public class EnemySpawner : MonoBehaviour
 
         float randomNumber = UnityEngine.Random.Range(1f, 3f);
         _Cooltime = randomNumber;
+
+        float randomX = UnityEngine.Random.Range(-1.8f, 1.8f);
+        SpawnerPosition.position = new Vector3(randomX, SpawnerPosition.position.y, SpawnerPosition.position.z);
     }
 }

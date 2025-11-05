@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
 
         if (_Health <= 0f)
         {
+            Debug.Log("죽었다!");
             Destroy(this.gameObject);
         }
     }
