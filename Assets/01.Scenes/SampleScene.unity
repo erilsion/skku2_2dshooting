@@ -643,6 +643,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 3
+  Health: 3
   MinX: -2
   MaxX: 2
   MinY: -5

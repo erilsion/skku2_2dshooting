@@ -8,6 +8,10 @@ public class MiniBullet1 : MonoBehaviour
     private float _Speed;
     public float Duration = 0.8f;
 
+
+    [Header("공격력")]
+    public float Damage = 40f;
+
     private void Start()
     {
         _Speed = StartSpeed;
@@ -36,10 +40,8 @@ public class MiniBullet1 : MonoBehaviour
 
         Enemy enemy = other.gameObject.GetComponent<Enemy>();
 
-        enemy.Health -= 40f;
-        Debug.Log("적에게 40 대미지!");
+        enemy.Hit(Damage);
 
-        if (enemy.Health > 0f) return;
-        Destroy(other.gameObject);
+        Destroy(gameObject);
     }
 }

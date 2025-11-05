@@ -4,7 +4,8 @@ public class Enemy : MonoBehaviour
 {
     [Header("능력치")]
     public float Speed;
-    public float Health = 100f;
+    private float _Health = 100f;
+    public float Damage = 1f;
 
 
     [Header("시작위치")]
@@ -19,19 +20,27 @@ public class Enemy : MonoBehaviour
     }
 
 
+    public void Hit(float damage)
+    {
+        _Health -= damage;
+
+        if (_Health <= 0f)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+
     private void OnTriggerEnter2D(Collider2D other)  // 충돌이 시작될 때
     {
         // 적은 플레이어만 죽여야 한다. 총알은 안 죽인다.    ㄱ
         if (!other.gameObject.CompareTag("Player")) return;  // 플레이어'만' 충돌 처리
 
-        PlayerMove Player = other.gameObject.GetComponent<PlayerMove>();
+        Player Player = other.gameObject.GetComponent<Player>();
 
-        Player.Health -= 1f;
+        Player.Hit(Damage);
 
-        if (Player.Health > 0f) return;
-
-        // Destroy(this.gameObject);  // 스크립트 부여된 오브젝트 삭제(사망)  => 적
-        Destroy(other.gameObject); // 부딪힌 다른 오브젝트 삭제(사망)  => 플레이어, 총알
+        Destroy(gameObject);
     }
 
     // private void OnTriggerStay2D(Collider2D other)  // 충돌이 진행되는 동안

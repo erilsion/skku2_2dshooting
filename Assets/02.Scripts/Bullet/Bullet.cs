@@ -7,6 +7,11 @@ public class Bullet : MonoBehaviour
     public float EndSpeed = 7f;
     private float _Speed;
     public float Duration = 1.2f;   // 마지막 속도에 도달하는 시간(초)
+    
+
+    [Header("공격력")]
+    public float Damage = 60f;
+
 
     private void Start()
     {
@@ -48,11 +53,8 @@ public class Bullet : MonoBehaviour
         Enemy enemy = enemyGameObject.GetComponent<Enemy>();  // Enemy 스크립트 컴포넌트 가져오기
         // Enemy enemy = other.gameObject.GetComponent<Enemy>(); 로 줄여 쓸 수 있다.
 
-        enemy.Health -= 60f;
-        Debug.Log("적에게 60 대미지!");
+        enemy.Hit(Damage);
 
-        if (enemy.Health > 0f) return;
-        Destroy(other.gameObject);
-
+        Destroy(gameObject);
     }
 }
