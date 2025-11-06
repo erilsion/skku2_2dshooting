@@ -3,8 +3,8 @@
 public class Enemy : MonoBehaviour
 {
     [Header("능력치")]
-    public float Speed;
-    private float _Health = 100f;
+    public float Speed = 3;
+    private float _health = 100f;
     public float Damage = 1f;
 
 
@@ -22,9 +22,9 @@ public class Enemy : MonoBehaviour
 
     public void Hit(float damage)
     {
-        _Health -= damage;
+        _health -= damage;
 
-        if (_Health <= 0f)
+        if (_health <= 0f)
         {
             Destroy(this.gameObject);
         }

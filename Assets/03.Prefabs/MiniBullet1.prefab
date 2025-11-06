@@ -101,9 +101,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7702d63d51579eb4889c787b79faf09c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyPrefab: {fileID: 6298024469186185139, guid: 7b0f2a5fef6fa9d4ebce5c00c07b494a, type: 3}
+  EnemyChasingPrefab: {fileID: 5198665153694218306, guid: 9f14d16f67cc43b4f8143c1073a53d25, type: 3}
   StartSpeed: 3
   EndSpeed: 10
   Duration: 0.8
+  Damage: 40
 --- !u!70 &2806572700096141238
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

@@ -2,10 +2,16 @@
 
 public class Bullet : MonoBehaviour
 {
+    [Header("총알 프리팹")]
+    public GameObject BulletPrefab;
+    public GameObject MiniBullet1Prefab;
+    public GameObject MiniBullet2Prefab;
+
+
     [Header("이동 속도")]
     public float StartSpeed = 1f;
     public float EndSpeed = 7f;
-    private float _Speed;
+    private float _speed;
     public float Duration = 1.2f;   // 마지막 속도에 도달하는 시간(초)
     
 
@@ -15,7 +21,7 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
-        _Speed = StartSpeed;
+        _speed = StartSpeed;
     }
     private void Update()
     {
@@ -23,13 +29,13 @@ public class Bullet : MonoBehaviour
 
         float Acceleration = (EndSpeed - StartSpeed) / Duration;  // 가속도
 
-        _Speed += Time.deltaTime * Acceleration;   // 초당 + 1 * 가속도
+        _speed += Time.deltaTime * Acceleration;   // 초당 + 1 * 가속도
         
 
-        _Speed = Mathf.Min(_Speed, EndSpeed);  // 아래 주석과 같은 뜻이다.
-        // if (_Speed > EndSpeed)
+        _speed = Mathf.Min(_speed, EndSpeed);  // 아래 주석과 같은 뜻이다.
+        // if (_speed > EndSpeed)
         // {
-        //     _Speed = EndSpeed;
+        //     _speed = EndSpeed;
         // }
 
 
@@ -41,21 +47,28 @@ public class Bullet : MonoBehaviour
         // 방향에 따라 이동한다.
         // 새로운 위치 = 현재 위치 + 방향 * 속력 * 시간
         Vector2 position = transform.position;
-        Vector2 newPosition = position + direction * _Speed * Time.deltaTime;
+        Vector2 newPosition = position + direction * _speed * Time.deltaTime;
         transform.position = newPosition;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Enemy") == false) return;
+        if (!other.CompareTag("Enemy")) return;
 
-        GameObject enemyGameObject = other.gameObject;        // 적 오브젝트 지정
-        Enemy enemy = enemyGameObject.GetComponent<Enemy>();  // Enemy 스크립트 컴포넌트 가져오기
-        // Enemy enemy = other.gameObject.GetComponent<Enemy>(); 로 줄여 쓸 수 있다.
 
-        enemy.Hit(Damage);
+        Enemy enemy = other.GetComponent<Enemy>();
+        EnemyChasing enemyChasing = other.GetComponent<EnemyChasing>();
 
-        Destroy(this.gameObject);
+        if (enemy != null)
+        {
+            enemy.Hit(Damage);
+        }
+
+        if (enemyChasing != null)
+        {
+            enemyChasing.Hit(Damage);
+        }
+
         Destroy(gameObject);
     }
 }

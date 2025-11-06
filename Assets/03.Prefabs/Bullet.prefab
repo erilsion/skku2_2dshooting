@@ -101,9 +101,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c74f9fb0524a4e47ad0a82cabfbba43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BulletPrefab: {fileID: 6412167869773182766}
+  MiniBullet1Prefab: {fileID: 3762592075760517474, guid: ba0f01bcfad7e5142af32b04a5b041d3, type: 3}
+  MiniBullet2Prefab: {fileID: 320124065123496355, guid: 5fe9dcda5e95078429947a6c538ac510, type: 3}
+  EnemyPrefab: {fileID: 6298024469186185139, guid: 7b0f2a5fef6fa9d4ebce5c00c07b494a, type: 3}
+  EnemyChasingPrefab: {fileID: 5198665153694218306, guid: 9f14d16f67cc43b4f8143c1073a53d25, type: 3}
   StartSpeed: 1
   EndSpeed: 7
   Duration: 1.2
+  Damage: 60
 --- !u!60 &6177675196201168708
 PolygonCollider2D:
   m_ObjectHideFlags: 0

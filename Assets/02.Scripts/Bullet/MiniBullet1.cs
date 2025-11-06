@@ -2,6 +2,10 @@
 
 public class MiniBullet1 : MonoBehaviour
 {
+    [Header("적 프리팹")]
+    public GameObject EnemyPrefab;
+    public GameObject EnemyChasingPrefab;
+
     [Header("이동 속도")]
     public float StartSpeed = 3f;
     public float EndSpeed = 10f;
@@ -36,13 +40,22 @@ public class MiniBullet1 : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Enemy") == false) return;
+        if (!other.CompareTag("Enemy")) return;
 
-        Enemy enemy = other.gameObject.GetComponent<Enemy>();
 
-        enemy.Hit(Damage);
+        Enemy enemy = other.GetComponent<Enemy>();
+        EnemyChasing enemyChasing = other.GetComponent<EnemyChasing>();
 
-        Destroy(this.gameObject);
+        if (enemy != null)
+        {
+            enemy.Hit(Damage);
+        }
+
+        if (enemyChasing != null)
+        {
+            enemyChasing.Hit(Damage);
+        }
+
         Destroy(gameObject);
     }
 }

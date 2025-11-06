@@ -3,13 +3,13 @@
 public class Player : MonoBehaviour
 {
     [Header("능력치")]
-    private float _Health = 3f;
+    private float _health = 3f;
 
     public void Hit(float Damage)
     {
-        _Health -= Damage;
+        _health -= Damage;
 
-        if (_Health <= 0f)
+        if (_health <= 0f)
         {
             Debug.Log("죽었다!");
             Destroy(this.gameObject);
