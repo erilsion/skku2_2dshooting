@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 754069722505380707}
   - component: {fileID: 4322145187403239472}
-  - component: {fileID: 5906256318304534214}
   - component: {fileID: 2309576710201704342}
   - component: {fileID: 5559666221052023663}
+  - component: {fileID: 4376210944766716556}
   m_Layer: 0
   m_Name: EnemyTrace
   m_TagString: Enemy
@@ -90,20 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5906256318304534214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5198665153694218306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca0ffaafb7eaec94fb9f64810adf75ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 2
-  Damage: 1
 --- !u!50 &2309576710201704342
 Rigidbody2D:
   serializedVersion: 5
@@ -182,3 +168,18 @@ PolygonCollider2D:
       - {x: 0, y: -0.25}
       - {x: 0.5, y: 0}
   m_UseDelaunayMesh: 0
+--- !u!114 &4376210944766716556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5198665153694218306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0da88b8a97341c4fa7dc5090dcf75ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  Speed: 3
+  Damage: 1

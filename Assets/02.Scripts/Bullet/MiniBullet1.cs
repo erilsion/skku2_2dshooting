@@ -42,19 +42,9 @@ public class MiniBullet1 : MonoBehaviour
     {
         if (!other.CompareTag("Enemy")) return;
 
-
         Enemy enemy = other.GetComponent<Enemy>();
-        EnemyTrace enemyChasing = other.GetComponent<EnemyTrace>();
 
-        if (enemy != null)
-        {
-            enemy.Hit(Damage);
-        }
-
-        if (enemyChasing != null)
-        {
-            enemyChasing.Hit(Damage);
-        }
+        enemy.Hit(Damage);
 
         Destroy(gameObject);
     }
