@@ -6,7 +6,8 @@
 public enum EEnemytype  // 열거형의 이름은 앞에 E를 하나 더 붙이는 게 관례 (다른 이름과 헷갈리지 않도록)
 {
     Directional,
-    Trace
+    Trace,
+    Boomerang
 }
 
 
@@ -24,6 +25,7 @@ public class Enemy : MonoBehaviour
 
     [Header("시작 위치")]
     private Vector3 _originPosition;
+    private Vector2 BoomerangMoveX = new Vector2(2f, 0f);
 
 
     [Header("플레이어 위치")]
@@ -45,6 +47,10 @@ public class Enemy : MonoBehaviour
         if (Type == EEnemytype.Trace)
         {
             MoveTrace();
+        }
+        if (Type == EEnemytype.Boomerang)
+        {
+            MoveBoomerang();
         }
 
         // 0. 타입에 따라 동작이 다르다  ->  함수로 쪼갠다.
@@ -77,6 +83,12 @@ public class Enemy : MonoBehaviour
         transform.Translate(direction * (Speed * Time.deltaTime));
     }
 
+    private void MoveBoomerang()
+    {
+        Speed = 4f;
+        BoomerangEnter();
+    }
+
 
     public void Hit(float damage)
     {
@@ -98,5 +110,23 @@ public class Enemy : MonoBehaviour
         Player.Hit(Damage);
 
         Destroy(gameObject);
+    }
+
+    private void BoomerangEnter()
+    {
+        if (_originPosition.x < 0)
+        {
+            Vector2 direction = (Vector2)transform.position + BoomerangMoveX;
+            direction = direction.normalized;
+
+            transform.Translate(direction * (Speed * Time.deltaTime));
+        }
+        else
+        {
+            Vector2 direction = (Vector2)transform.position - BoomerangMoveX;
+            direction = direction.normalized;
+
+            transform.Translate(direction * (Speed * Time.deltaTime));
+        }
     }
 }

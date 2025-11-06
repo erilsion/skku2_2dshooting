@@ -19,8 +19,9 @@ public class EnemySpawner : MonoBehaviour
     private float _maxTime = 3f;
 
     [Header("확률")]
-    private float _maxSpawnRate = 1f;
-    private float _minSpawnRate = 0f;
+    private float _maxRate = 1f;
+    private float _minRate = 0f;
+    private float _enemyRate = 0.7f;
 
 
     private void Start()
@@ -36,16 +37,14 @@ public class EnemySpawner : MonoBehaviour
         if (_timer <= _cooltime) return;
 
         SpawnRate();
-
-        _timer = 0f;
-
+        Cooltime();
         RandomSpawnPosition();
     }
 
     private void SpawnRate()
     {
-        float SpawnNumber = Random.Range(_minSpawnRate, _maxSpawnRate);
-        if (SpawnNumber > 0.7f)
+        float SpawnNumber = Random.Range(_minRate, _maxRate);
+        if (SpawnNumber > _enemyRate)
         {
             GameObject _enemy = Instantiate(EnemyPrefab[(int)EEnemytype.Directional]);  // 열거형의 번호를 넣어줌
             _enemy.transform.position = SpawnerPosition.position;
@@ -61,10 +60,14 @@ public class EnemySpawner : MonoBehaviour
 
     private void RandomSpawnPosition()
     {
-        float randomNumber = UnityEngine.Random.Range(_minTime, _maxTime);
-        _cooltime = randomNumber;
-
         Vector2 randomX = Random.insideUnitCircle * SpawnRangeX;
         SpawnerPosition.position = new Vector3(randomX.x, SpawnerPosition.position.y, SpawnerPosition.position.z);
+    }
+
+    private void Cooltime()
+    {
+        float randomNumber = UnityEngine.Random.Range(_minTime, _maxTime);
+        _cooltime = randomNumber;
+        _timer = 0f;
     }
 }
