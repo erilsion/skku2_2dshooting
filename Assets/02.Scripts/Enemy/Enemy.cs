@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 // Enum(열거형): 기억하기 어려운 상수들을 기억하기 쉬운 이름 하나로 묶어 그룹처럼 관리하는 표현 방식
 // 추후 사용할 때 정의되지 않은 열거형(오타 등) 이름이 나오면 빨간색으로 뜬다.
@@ -19,13 +20,14 @@ public class Enemy : MonoBehaviour
 
     [Header("능력치")]
     public float Speed;
-    private float _health = 100f;
+    private float _health;
     public float Damage = 1f;
 
 
     [Header("시작 위치")]
     private Vector3 _originPosition;
-    private Vector2 BoomerangMoveX = new Vector2(2f, 0f);
+    private Vector2 BoomerangLeft = new Vector2 (1f, 2f);
+    private Vector2 BoomerangRight = new Vector2(-1f, 2f);
 
 
     [Header("플레이어 위치")]
@@ -63,6 +65,7 @@ public class Enemy : MonoBehaviour
     private void MoveDirectional()
     {
         Speed = 3f;
+        _health = 100f;
 
         Vector2 direction = Vector2.down;
         transform.Translate(direction * (Speed * Time.deltaTime));
@@ -72,6 +75,7 @@ public class Enemy : MonoBehaviour
     private void MoveTrace()
     {
         Speed = 2f;
+        _health = 100f;
 
         if (_playerObject == null) return;
 
@@ -86,6 +90,8 @@ public class Enemy : MonoBehaviour
     private void MoveBoomerang()
     {
         Speed = 4f;
+        _health = 60f;
+
         BoomerangEnter();
     }
 
@@ -114,19 +120,17 @@ public class Enemy : MonoBehaviour
 
     private void BoomerangEnter()
     {
+        Vector2 target;
+
         if (_originPosition.x < 0)
         {
-            Vector2 direction = (Vector2)transform.position + BoomerangMoveX;
-            direction = direction.normalized;
-
-            transform.Translate(direction * (Speed * Time.deltaTime));
+            target = (Vector2)_originPosition + BoomerangLeft;
         }
         else
         {
-            Vector2 direction = (Vector2)transform.position - BoomerangMoveX;
-            direction = direction.normalized;
-
-            transform.Translate(direction * (Speed * Time.deltaTime));
+            target = (Vector2)_originPosition + BoomerangRight;
         }
+
+        transform.position = Vector2.MoveTowards(transform.position,target, Speed * Time.deltaTime);
     }
 }

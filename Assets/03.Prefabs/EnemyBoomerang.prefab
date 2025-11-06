@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8983990384312892480}
   - component: {fileID: 3708328521953381828}
+  - component: {fileID: 574393052970182443}
   m_Layer: 0
   m_Name: EnemyBoomerang
   m_TagString: Untagged
@@ -87,3 +88,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &574393052970182443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855478144983288255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0da88b8a97341c4fa7dc5090dcf75ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  Speed: 0
+  Damage: 1
