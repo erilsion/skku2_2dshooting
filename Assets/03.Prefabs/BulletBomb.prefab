@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8697484122426004559}
   - component: {fileID: 7659285535364578078}
-  - component: {fileID: -6078364990670465916}
   - component: {fileID: 3458924465265313207}
+  - component: {fileID: -5674242929840982337}
   m_Layer: 0
-  m_Name: MiniBullet2
+  m_Name: BulletBomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,24 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-6078364990670465916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 320124065123496355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 068c32ff2a656e3449142aec493cf27e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnemyPrefab: {fileID: 6298024469186185139, guid: 7b0f2a5fef6fa9d4ebce5c00c07b494a, type: 3}
-  EnemyChasingPrefab: {fileID: 5198665153694218306, guid: 9f14d16f67cc43b4f8143c1073a53d25, type: 3}
-  StartSpeed: 0.2
-  EndSpeed: 4
-  Duration: 2
-  Damage: 40
 --- !u!58 &3458924465265313207
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -143,3 +125,20 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &-5674242929840982337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320124065123496355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c74f9fb0524a4e47ad0a82cabfbba43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  StartSpeed: 0
+  EndSpeed: 0
+  Duration: 0
+  Damage: 0

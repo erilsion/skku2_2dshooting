@@ -1,13 +1,23 @@
 ﻿using UnityEngine;
 
+// Enum(열거형): 기억하기 어려운 상수들을 기억하기 쉬운 이름 하나로 묶어 그룹처럼 관리하는 표현 방식
+// 추후 사용할 때 정의되지 않은 열거형(오타 등) 이름이 나오면 빨간색으로 뜬다.
+
+public enum EEnemytype  // 열거형의 이름은 앞에 E를 하나 더 붙이는 게 관례 (다른 이름과 헷갈리지 않도록)
+{
+    Directional,
+    Trace
+}
+
+
 public class Enemy : MonoBehaviour
 {
     [Header("적 타입")]
-    public int Type;
+    public EEnemytype Type;
 
 
     [Header("능력치")]
-    public float Speed = 3;
+    public float Speed;
     private float _health = 100f;
     public float Damage = 1f;
 
@@ -28,19 +38,26 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if(Type == 1)
+        if(Type == EEnemytype.Directional)
         {
             MoveDirectional();
         }
-        if (Type == 2)
+        if (Type == EEnemytype.Trace)
         {
             MoveTrace();
         }
+
+        // 0. 타입에 따라 동작이 다르다  ->  함수로 쪼갠다.
+        // 1. 함수가 너무 많아지는 거 같다   ->  클래스로 쪼개는 게 좋다.
+        // 2. 쪼갠 후에 보니까 똑같은 기능 / 속성이 있다  ->  상속
+        // 3. 상속을 하자니 책임이 너무 크다  ->  조합(컴포넌트 패턴)
     }
 
 
     private void MoveDirectional()
     {
+        Speed = 3f;
+
         Vector2 direction = Vector2.down;
         transform.Translate(direction * (Speed * Time.deltaTime));
     }
@@ -48,6 +65,8 @@ public class Enemy : MonoBehaviour
 
     private void MoveTrace()
     {
+        Speed = 2f;
+
         if (_playerObject == null) return;
 
         Vector2 playerPosition = _playerObject.transform.position;

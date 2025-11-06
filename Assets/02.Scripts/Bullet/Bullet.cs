@@ -1,22 +1,28 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
+
+public enum EBullettype
+{
+    MainBullet,
+    Bins,
+    Bomb
+}
 
 public class Bullet : MonoBehaviour
 {
     [Header("총알 프리팹")]
-    public GameObject BulletPrefab;
-    public GameObject MiniBullet1Prefab;
-    public GameObject MiniBullet2Prefab;
+    public EBullettype Type;
 
 
     [Header("이동 속도")]
-    public float StartSpeed = 1f;
-    public float EndSpeed = 7f;
+    public float StartSpeed;
+    public float EndSpeed;
     private float _speed;
-    public float Duration = 1.2f;   // 마지막 속도에 도달하는 시간(초)
+    public float Duration;
     
 
     [Header("공격력")]
-    public float Damage = 60f;
+    public float Damage;
 
 
     private void Start()
@@ -24,12 +30,55 @@ public class Bullet : MonoBehaviour
         _speed = StartSpeed;
     }
 
+
     private void Update()
+    {
+        if (Type == EBullettype.MainBullet)
+        {
+            MainBullet();
+        }
+        if (Type == EBullettype.Bins)
+        {
+            Bins();
+        }
+        if (Type == EBullettype.Bomb)
+        {
+            Bomb();
+        }
+
+        BulletMove();
+    }
+
+    private void MainBullet()
+    {
+        StartSpeed = 1f;
+        EndSpeed = 7f;
+        Duration = 1.2f;
+        Damage = 60f;
+    }
+
+    private void Bins()
+    {
+        StartSpeed = 3f;
+        EndSpeed = 10f;
+        Duration = 0.8f;
+        Damage = 30f;
+    }
+
+    private void Bomb()
+    {
+        StartSpeed = 0.6f;
+        EndSpeed = 4f;
+        Duration = 2f;
+        Damage = 40f;
+    }
+
+    private void BulletMove()
     {
         float Acceleration = (EndSpeed - StartSpeed) / Duration;
 
         _speed += Time.deltaTime * Acceleration;
-        
+
 
         _speed = Mathf.Min(_speed, EndSpeed);
 
@@ -49,6 +98,7 @@ public class Bullet : MonoBehaviour
         Enemy enemy = other.GetComponent<Enemy>();
 
         enemy.Hit(Damage);
+        Debug.Log($"적에게 {Damage} 대미지를 입혔다!");
 
         Destroy(gameObject);
     }
