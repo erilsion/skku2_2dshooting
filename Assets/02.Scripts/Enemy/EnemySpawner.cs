@@ -5,8 +5,8 @@ using Random = UnityEngine.Random;  // 다른 랜덤 함수가 자동으로 쳐�
 public class EnemySpawner : MonoBehaviour
 {
     [Header("적 프리팹")]
-    public GameObject EnemyPrefab;
-    public GameObject EnemyChasingPrefab;
+    // 프리팹을 참조할 배열
+    public GameObject[] EnemyPrefab;
 
     [Header("스포너 위치")]
     public Transform SpawnerPosition;
@@ -17,6 +17,11 @@ public class EnemySpawner : MonoBehaviour
     private float _cooltime;
     private float _minTime = 1f;
     private float _maxTime = 3f;
+
+    [Header("확률")]
+    private float _maxSpawnRate = 1f;
+    private float _minSpawnRate = 0f;
+
 
     private void Start()
     {
@@ -30,22 +35,32 @@ public class EnemySpawner : MonoBehaviour
 
         if (_timer <= _cooltime) return;
 
-        float SpawnRate = Random.Range(0f, 1f);
-        if (SpawnRate >= 0.7f)
-        {
-            GameObject _enemy = Instantiate(EnemyPrefab);
-            _enemy.transform.position = SpawnerPosition.position;
-            
-        }
-        else
-        {
-            GameObject _enemyChasing = Instantiate(EnemyChasingPrefab);
-            _enemyChasing.transform.position = SpawnerPosition.position;
-        }
-        SpawnRate = 0f;
+        SpawnRate();
 
         _timer = 0f;
 
+        RandomSpawnPosition();
+    }
+
+    private void SpawnRate()
+    {
+        float SpawnNumber = Random.Range(_minSpawnRate, _maxSpawnRate);
+        if (SpawnNumber > 0.7f)
+        {
+            GameObject _enemy = Instantiate(EnemyPrefab[(int)EEnemytype.Directional]);  // 열거형의 번호를 넣어줌
+            _enemy.transform.position = SpawnerPosition.position;
+
+        }
+        else
+        {
+            GameObject _enemy = Instantiate(EnemyPrefab[(int)EEnemytype.Trace]);
+            _enemy.transform.position = SpawnerPosition.position;
+        }
+        SpawnNumber = 0f;
+    }
+
+    private void RandomSpawnPosition()
+    {
         float randomNumber = UnityEngine.Random.Range(_minTime, _maxTime);
         _cooltime = randomNumber;
 
