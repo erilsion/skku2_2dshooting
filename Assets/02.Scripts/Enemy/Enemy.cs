@@ -8,17 +8,34 @@ public class Enemy : MonoBehaviour
     public float Damage = 1f;
 
 
-    [Header("시작위치")]
+    [Header("적 프리팹")]
+    public GameObject EnemyPrefab;
+    public GameObject EnemyTracePrefab;
+
+
+    [Header("시작 위치")]
     private Vector3 _originPosition;
 
 
-    void Update()
-    {
-        Vector2 direction = Vector2.down;
+    [Header("플레이어 위치")]
+    private GameObject _playerObject;
 
-        transform.Translate(direction * (Speed * Time.deltaTime));
+    private void Start()
+    {
+        // 캐싱: 자주 쓰는 데이터를 미리 가까운 곳에 저장해두고 참조하는 것
+        _playerObject = GameObject.FindWithTag("Player");
     }
 
+    void Update()
+    {
+        MoveDirectional();
+    }
+
+    private void MoveDirectional()
+    {
+        Vector2 direction = Vector2.down;
+        transform.Translate(direction * (Speed * Time.deltaTime));
+    }
 
     public void Hit(float damage)
     {
@@ -31,10 +48,9 @@ public class Enemy : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter2D(Collider2D other)  // 충돌이 시작될 때
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        // 적은 플레이어만 죽여야 한다. 총알은 안 죽인다.    ㄱ
-        if (!other.gameObject.CompareTag("Player")) return;  // 플레이어'만' 충돌 처리
+        if (!other.gameObject.CompareTag("Player")) return;
 
         Player Player = other.gameObject.GetComponent<Player>();
 
@@ -42,8 +58,4 @@ public class Enemy : MonoBehaviour
 
         Destroy(gameObject);
     }
-
-    // private void OnTriggerStay2D(Collider2D other)  // 충돌이 진행되는 동안
-    // private void OnTriggerExit2D(Collider2D other)  // 충돌이 끝날 때
-
 }

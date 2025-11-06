@@ -1,7 +1,7 @@
 ﻿using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyChasing : MonoBehaviour
+public class EnemyTrace : MonoBehaviour
 {
     // 목표: 플레이어를 쫓아가는 적을 만들고 싶다.
     [Header("능력치")]
@@ -13,14 +13,23 @@ public class EnemyChasing : MonoBehaviour
     [Header("시작위치")]
     private Vector3 _originPosition;
 
+    private GameObject _playerObject;
+
+    private void Start()
+    {
+        // 캐싱: 자주 쓰는 데이터를 미리 가까운 곳에 저장해두고 참조하는 것
+        _playerObject = GameObject.FindWithTag("Player");
+    }
 
     private void Update()
     {
+        if (_playerObject == null) return;
+
         // 1, 플레이어의 위치를 구한다.
-        GameObject PlayerObject = GameObject.FindWithTag ("Player");
+        Vector2 playerPosition = _playerObject.transform.position;
 
         // 2. 위치에 따라 방향을 구한다.
-        Vector2 direction = _originPosition + PlayerObject.transform.position;
+        Vector2 direction = playerPosition - (Vector2)transform.position;
         direction = direction.normalized;
 
         // 3. 방향에 맞게 이동한다.

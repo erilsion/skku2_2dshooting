@@ -23,29 +23,20 @@ public class Bullet : MonoBehaviour
     {
         _speed = StartSpeed;
     }
+
     private void Update()
     {
-        // 목표: Duration 안에 EndSpeed에 도달하고 싶다.
+        float Acceleration = (EndSpeed - StartSpeed) / Duration;
 
-        float Acceleration = (EndSpeed - StartSpeed) / Duration;  // 가속도
-
-        _speed += Time.deltaTime * Acceleration;   // 초당 + 1 * 가속도
+        _speed += Time.deltaTime * Acceleration;
         
 
-        _speed = Mathf.Min(_speed, EndSpeed);  // 아래 주석과 같은 뜻이다.
-        // if (_speed > EndSpeed)
-        // {
-        //     _speed = EndSpeed;
-        // }
+        _speed = Mathf.Min(_speed, EndSpeed);
 
 
-        // 방향을 구한다.
         Vector2 direction = Vector2.up;
-        // Vector2 direction = new Vector2(0, 1); 같은 말
 
 
-        // 방향에 따라 이동한다.
-        // 새로운 위치 = 현재 위치 + 방향 * 속력 * 시간
         Vector2 position = transform.position;
         Vector2 newPosition = position + direction * _speed * Time.deltaTime;
         transform.position = newPosition;
@@ -57,7 +48,7 @@ public class Bullet : MonoBehaviour
 
 
         Enemy enemy = other.GetComponent<Enemy>();
-        EnemyChasing enemyChasing = other.GetComponent<EnemyChasing>();
+        EnemyTrace enemyChasing = other.GetComponent<EnemyTrace>();
 
         if (enemy != null)
         {

@@ -44,7 +44,7 @@ public class MiniBullet1 : MonoBehaviour
 
 
         Enemy enemy = other.GetComponent<Enemy>();
-        EnemyChasing enemyChasing = other.GetComponent<EnemyChasing>();
+        EnemyTrace enemyChasing = other.GetComponent<EnemyTrace>();
 
         if (enemy != null)
         {
