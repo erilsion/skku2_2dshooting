@@ -92,4 +92,9 @@ public class PlayerFire : MonoBehaviour
         Minibullet1.transform.position = transform.position + MiniBulletOffset;
         Minibullet2.transform.position = transform.position - MiniBulletOffset;
     }
+
+    public void AttackSpeedUp(float value)
+    {
+        Cooltime -= value;
+    }
 }

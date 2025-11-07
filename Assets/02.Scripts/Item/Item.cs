@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-public enum EItemtype
+﻿using Unity.VisualScripting;
+using UnityEngine;
+public enum EItemType
 {
     SpeedItem,
     HealthItem,
@@ -10,18 +11,11 @@ public enum EItemtype
 public class Item : MonoBehaviour
 {
     [Header("아이템 타입")]
-    public EItemtype Type;
-
-    [Header("아이템 효과")]
-    private float SpeedUpAmount = 2f;
-    private float HealthUpAmount = 1f;
-    private float AttackSpeedUpAmount = 0.5f;
+    public EItemType Type;
+    public float value;
 
     [Header("플레이어 위치")]
     private GameObject _playerObject;
-
-    [Header("총알 오브젝트")]
-    private GameObject _bulletObject;
 
     [Header("아이템 이동관련 옵션")]
     private float _speed = 3f;
@@ -56,23 +50,32 @@ public class Item : MonoBehaviour
     {
         if (other.CompareTag("Player") == false) return;
 
-        if (Type == EItemtype.SpeedItem)
-        {
-            PlayerMove _playerMove = other.gameObject.GetComponent<PlayerMove>();
-            _playerMove.SpeedUp(SpeedUpAmount);
-        }
-        else if (Type == EItemtype.HealthItem)
-        {
-            Player _playerHealth = other.gameObject.GetComponent<Player>();
-            _playerHealth.HealthUp(HealthUpAmount);
-        }
-        else if (Type == EItemtype.AttackSpeedItem)
-        {
-            _bulletObject = GameObject.FindWithTag("PlayerBullet");
-            Bullet _playerAttackSpeed = GetComponent<Bullet>();
-            _playerAttackSpeed.AttackSpeedUp(AttackSpeedUpAmount);
-        }
+        Apply(other);
 
         Destroy(gameObject);
+    }
+    private void Apply(Collider2D other)
+    {
+        switch (Type)
+        {
+            case EItemType.SpeedItem:
+                {
+                    PlayerMove _playerMove = other.gameObject.GetComponent<PlayerMove>();
+                    _playerMove.SpeedUp(value);
+                    break;
+                }
+            case EItemType.HealthItem:
+                {
+                    Player _playerHealth = other.gameObject.GetComponent<Player>();
+                    _playerHealth.HealthUp(value);
+                    break;
+                }
+            case EItemType.AttackSpeedItem:
+                {
+                    PlayerFire _playerAttackSpeed = other.GetComponent<PlayerFire>();
+                    _playerAttackSpeed.AttackSpeedUp(value);
+                    break;
+                }
+        }
     }
 }

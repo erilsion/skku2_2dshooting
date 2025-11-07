@@ -37,7 +37,7 @@ public class Enemy : MonoBehaviour
     [Header("아이템 드랍")]
     public GameObject[] ItemPrefabs;
     public int[] ItemWeights;
-    private float _maxRate = 1f;
+    private float _maxRate = 2f;
     private float _minRate = 0f;
 
 
