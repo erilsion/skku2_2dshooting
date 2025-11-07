@@ -19,7 +19,8 @@ public class Bullet : MonoBehaviour
     public float EndSpeed;
     private float _speed;
     public float Duration;
-    
+    private float _acceleration;
+
 
     [Header("공격력")]
     public float Damage;
@@ -74,8 +75,8 @@ public class Bullet : MonoBehaviour
 
     private void BulletMove()
     {
-        float Acceleration = (EndSpeed - StartSpeed) / Duration;
-        _speed += Time.deltaTime * Acceleration;
+        _acceleration = (EndSpeed - StartSpeed) / Duration;
+        _speed += Time.deltaTime * _acceleration;
 
         _speed = Mathf.Min(_speed, EndSpeed);
 
@@ -98,6 +99,6 @@ public class Bullet : MonoBehaviour
     }
     public void AttackSpeedUp(float value)
     {
-        _speed += value;
+        _acceleration += value;
     }
 }
