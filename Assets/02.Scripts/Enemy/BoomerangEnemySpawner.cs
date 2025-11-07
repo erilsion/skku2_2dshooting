@@ -21,8 +21,8 @@ public class BoomerangEnemySpawner : MonoBehaviour
 
     void Start()
     {
-        float randomNumber = UnityEngine.Random.Range(_minTime, _maxTime);
-        _cooltime = randomNumber;
+        float RandomNumber = UnityEngine.Random.Range(_minTime, _maxTime);
+        _cooltime = RandomNumber;
     }
 
 
@@ -55,8 +55,8 @@ public class BoomerangEnemySpawner : MonoBehaviour
 
     private void Cooltime()
     {
-        float randomNumber = UnityEngine.Random.Range(_minTime, _maxTime);
-        _cooltime = randomNumber;
+        float RandomNumber = UnityEngine.Random.Range(_minTime, _maxTime);
+        _cooltime = RandomNumber;
         _timer = 0f;
     }
 }

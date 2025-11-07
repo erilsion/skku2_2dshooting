@@ -1,14 +1,12 @@
 ﻿using TMPro;
 using UnityEngine;
 
-
 public enum EEnemytype
 {
     Directional,
     Trace,
     Boomerang
 }
-
 
 public class Enemy : MonoBehaviour
 {
@@ -35,6 +33,12 @@ public class Enemy : MonoBehaviour
     private float _traceHealth = 100f;
     private float _boomerangSpeed = 4f;
     private float _boomerangHealth = 60f;
+
+    [Header("아이템 드랍")]
+    public GameObject[] ItemPrefabs;
+    public int[] ItemWeights;
+    private float _maxRate = 1f;
+    private float _minRate = 0f;
 
 
     private void Start()
@@ -99,15 +103,6 @@ public class Enemy : MonoBehaviour
        // BoomerangAttack();
     }
 
-    public void Hit(float damage)
-    {
-        _health -= damage;
-
-        if (_health <= 0f)
-        {
-            Destroy(this.gameObject);
-        }
-    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -118,6 +113,45 @@ public class Enemy : MonoBehaviour
         Player.Hit(Damage);
 
         Destroy(gameObject);
+    }
+    public void Hit(float damage)
+    {
+        _health -= damage;
+
+        if (_health <= 0f)
+        {
+            DropItem();
+            Destroy(this.gameObject);
+        }
+    }
+
+    private void DropItem()
+    {
+        if (Random.Range(_minRate, _maxRate) == 0) return;  // 50%의 확률로 드랍
+
+        // 가중치의 합
+        // ItemWeights [70, 20, 10]
+        int weightSum = 0;
+        for(int i = 0; i < ItemWeights.Length; i++)
+        {
+            weightSum += ItemWeights[i];  // 100
+        }
+
+        // 0 ~ 100 가중치의 합 사이 랜덤 값
+        int randomValue = UnityEngine.Random.Range(0, weightSum);
+
+        // 가중치 값을 더해가며 구간을 비교한다.
+        // 70보다 작다면 0번째 아이템 생성, 90(70+20)보다 작다면 1번째 아이템 생성, 100(90+10)보다 작다면 2번째 아이템 생성 
+        int sum = 0; // 누적해갈 값
+
+        for (int i = 0; i < ItemWeights.Length; i++)
+        {
+            sum += ItemWeights[i];
+            if (randomValue < sum)
+            {
+                Instantiate(ItemPrefabs[i], transform.position, Quaternion.identity);
+            }
+        }
     }
 
     private void BoomerangEnter()

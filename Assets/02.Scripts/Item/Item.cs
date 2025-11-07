@@ -34,7 +34,6 @@ public class Item : MonoBehaviour
     {
         if (other.CompareTag("Player") || other.CompareTag("PlayerBullet") == false) return;
 
-
         if (Type == EItemtype.SpeedItem)
         {
             PlayerMove _playerMove = other.gameObject.GetComponent<PlayerMove>();

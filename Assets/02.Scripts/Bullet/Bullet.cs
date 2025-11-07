@@ -93,7 +93,6 @@ public class Bullet : MonoBehaviour
         Enemy enemy = other.GetComponent<Enemy>();
 
         enemy.Hit(Damage);
-        Debug.Log($"적에게 {Damage} 대미지를 입혔다!");
 
         Destroy(gameObject);
     }
