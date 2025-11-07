@@ -102,4 +102,8 @@ public class Bullet : MonoBehaviour
 
         Destroy(gameObject);
     }
+    public void AttackSpeedUp(float value)
+    {
+        _speed += value;
+    }
 }

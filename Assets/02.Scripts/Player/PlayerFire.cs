@@ -10,17 +10,14 @@ public class PlayerFire : MonoBehaviour
     public GameObject MiniBullet1Prefab;
     public GameObject MiniBullet2Prefab;
 
-
     [Header("총구")]
     public Transform FirePosition;
     public Vector3 TwoBullet = new Vector2(0.5f, 0);  // FireOffset
     public Vector3 MiniBulletOffset = new Vector2(-1f, 0);  // 추후 수정에는 총구 따로 만드는 게 좋다.
 
-
     [Header("쿨타임")]
     private float _fireTimer = 0f;
     private float Cooltime = 0.6f;   // public const float Cooltime = 0.5f;
-
 
     [Header("자동 / 수동 공격")]
     private KeyCode AutoAtteck = KeyCode.Keypad1;

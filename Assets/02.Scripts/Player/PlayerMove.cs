@@ -7,13 +7,11 @@ public class PlayerMove : MonoBehaviour
     [Header("능력치")]
     private float _speed = 3f;
 
-
     [Header("이동 제한 범위")]
     public float MinX = -2.5f;
     public float MaxX = 2.5f;
     public float MinY = -5f;
     public float MaxY = -2f;
-
 
     [Header("시작위치")]
     private Vector3 _originPosition;
@@ -27,12 +25,6 @@ public class PlayerMove : MonoBehaviour
     private void Start()
     {
         _originPosition = transform.position;
-    }
-
-
-    public void SpeedUp(int value)
-    {
-        _speed += value;
     }
 
 
@@ -93,6 +85,11 @@ public class PlayerMove : MonoBehaviour
     {
         Vector2 direction = _originPosition - transform.position;
         transform.Translate(translation: direction * _speed * Time.deltaTime);
+    }
+
+    public void SpeedUp(float value)
+    {
+        _speed += value;
     }
 }
 
