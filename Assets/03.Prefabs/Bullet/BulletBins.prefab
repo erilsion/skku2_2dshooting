@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5422299161645017348}
   - component: {fileID: 7803497787489200094}
   - component: {fileID: 2806572700096141238}
-  - component: {fileID: 6672304934082760920}
+  - component: {fileID: -3505673061054865560}
   m_Layer: 0
   m_Name: BulletBins
   m_TagString: PlayerBullet
@@ -126,7 +126,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
---- !u!114 &6672304934082760920
+--- !u!114 &-3505673061054865560
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 1
-  StartSpeed: 0
-  EndSpeed: 0
-  Duration: 0
-  Damage: 0
+  StartSpeed: 3
+  EndSpeed: 10
+  Duration: 0.8
+  Damage: 30

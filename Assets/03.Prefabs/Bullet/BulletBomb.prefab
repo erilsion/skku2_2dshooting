@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8697484122426004559}
   - component: {fileID: 7659285535364578078}
   - component: {fileID: 3458924465265313207}
-  - component: {fileID: -5674242929840982337}
+  - component: {fileID: 2609762965357184753}
   m_Layer: 0
   m_Name: BulletBomb
   m_TagString: PlayerBullet
@@ -125,7 +125,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
---- !u!114 &-5674242929840982337
+--- !u!114 &2609762965357184753
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,8 +137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c74f9fb0524a4e47ad0a82cabfbba43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
-  StartSpeed: 0
-  EndSpeed: 0
-  Duration: 0
-  Damage: 0
+  Type: 0
+  StartSpeed: 0.6
+  EndSpeed: 4
+  Duration: 2
+  Damage: 40

@@ -1,10 +1,8 @@
 ﻿using TMPro;
 using UnityEngine;
 
-// Enum(열거형): 기억하기 어려운 상수들을 기억하기 쉬운 이름 하나로 묶어 그룹처럼 관리하는 표현 방식
-// 추후 사용할 때 정의되지 않은 열거형(오타 등) 이름이 나오면 빨간색으로 뜬다.
 
-public enum EEnemytype  // 열거형의 이름은 앞에 E를 하나 더 붙이는 게 관례 (다른 이름과 헷갈리지 않도록)
+public enum EEnemytype
 {
     Directional,
     Trace,
@@ -17,27 +15,47 @@ public class Enemy : MonoBehaviour
     [Header("적 타입")]
     public EEnemytype Type;
 
-
     [Header("능력치")]
     public float Speed;
     private float _health;
     public float Damage = 1f;
-
 
     [Header("시작 위치")]
     private Vector3 _originPosition;
     private Vector2 BoomerangLeft = new Vector2 (1f, 2f);
     private Vector2 BoomerangRight = new Vector2(-1f, 2f);
 
-
     [Header("플레이어 위치")]
     private GameObject _playerObject;
+
+    [Header("적 능력치 초기값")]
+    private float _directionalSpeed = 3f;
+    private float _directionalHealth = 100f;
+    private float _traceSpeed = 2f;
+    private float _traceHealth = 100f;
+    private float _boomerangSpeed = 4f;
+    private float _boomerangHealth = 60f;
 
 
     private void Start()
     {
-        // 캐싱: 자주 쓰는 데이터를 미리 가까운 곳에 저장해두고 참조하는 것
         _playerObject = GameObject.FindWithTag("Player");
+
+        switch (Type)
+        {
+            case EEnemytype.Directional:
+                Speed = _directionalSpeed;
+                _health = _directionalHealth;
+                break;
+            case EEnemytype.Trace:
+                Speed = _traceSpeed;
+                _health = _traceHealth;
+                break;
+            case EEnemytype.Boomerang:
+                Speed = _boomerangSpeed;
+                _health = _boomerangHealth;
+                break;
+        }
     }
 
     void Update()
@@ -52,31 +70,19 @@ public class Enemy : MonoBehaviour
         }
         if (Type == EEnemytype.Boomerang)
         {
-            MoveBoomerang();
+            BoomerangRoutine();
         }
 
-        // 0. 타입에 따라 동작이 다르다  ->  함수로 쪼갠다.
-        // 1. 함수가 너무 많아지는 거 같다   ->  클래스로 쪼개는 게 좋다.
-        // 2. 쪼갠 후에 보니까 똑같은 기능 / 속성이 있다  ->  상속
-        // 3. 상속을 하자니 책임이 너무 크다  ->  조합(컴포넌트 패턴)
     }
-
 
     private void MoveDirectional()
     {
-        Speed = 3f;
-        _health = 100f;
-
         Vector2 direction = Vector2.down;
         transform.Translate(direction * (Speed * Time.deltaTime));
     }
 
-
     private void MoveTrace()
     {
-        Speed = 2f;
-        _health = 100f;
-
         if (_playerObject == null) return;
 
         Vector2 playerPosition = _playerObject.transform.position;
@@ -87,15 +93,11 @@ public class Enemy : MonoBehaviour
         transform.Translate(direction * (Speed * Time.deltaTime));
     }
 
-    private void MoveBoomerang()
+    private void BoomerangRoutine()
     {
-        Speed = 4f;
-        _health = 60f;
-
         BoomerangEnter();
-        BoomerangAttack();
+       // BoomerangAttack();
     }
-
 
     public void Hit(float damage)
     {
@@ -107,10 +109,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
-
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.gameObject.CompareTag("Player")) return;
+        if (other.gameObject.CompareTag("Player") == false) return;
 
         Player Player = other.gameObject.GetComponent<Player>();
 

@@ -9,7 +9,7 @@ public enum EItemtype
 
 public class Item : MonoBehaviour
 {
-    [Header("아이템 프리팹")]
+    [Header("아이템 타입")]
     public EItemtype Type;
 
     [Header("아이템 효과")]

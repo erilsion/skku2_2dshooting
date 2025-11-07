@@ -30,7 +30,6 @@ public class Bullet : MonoBehaviour
         _speed = StartSpeed;
     }
 
-
     private void Update()
     {
         if (Type == EBullettype.MainBullet)
@@ -76,15 +75,11 @@ public class Bullet : MonoBehaviour
     private void BulletMove()
     {
         float Acceleration = (EndSpeed - StartSpeed) / Duration;
-
         _speed += Time.deltaTime * Acceleration;
-
 
         _speed = Mathf.Min(_speed, EndSpeed);
 
-
         Vector2 direction = Vector2.up;
-
 
         Vector2 position = transform.position;
         Vector2 newPosition = position + direction * _speed * Time.deltaTime;
