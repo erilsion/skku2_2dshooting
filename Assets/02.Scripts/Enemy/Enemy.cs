@@ -93,6 +93,7 @@ public class Enemy : MonoBehaviour
         _health = 60f;
 
         BoomerangEnter();
+        BoomerangAttack();
     }
 
 
@@ -120,17 +121,23 @@ public class Enemy : MonoBehaviour
 
     private void BoomerangEnter()
     {
-        Vector2 target;
+        Vector2 BoomerangStop;
+        _originPosition = transform.position;
 
-        if (_originPosition.x < 0)
+        if (_originPosition.x > 0)
         {
-            target = (Vector2)_originPosition + BoomerangLeft;
+            BoomerangStop = BoomerangLeft;
         }
         else
         {
-            target = (Vector2)_originPosition + BoomerangRight;
+            BoomerangStop = BoomerangRight;
         }
 
-        transform.position = Vector2.MoveTowards(transform.position,target, Speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, BoomerangStop, Speed * Time.deltaTime);
+    }
+
+    private void BoomerangAttack()
+    {
+
     }
 }

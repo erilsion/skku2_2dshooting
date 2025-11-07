@@ -5,7 +5,7 @@ public class PlayerMove : MonoBehaviour
 {
     // 필요 속성
     [Header("능력치")]
-    public float Speed = 3f;
+    private float _speed = 3f;
 
 
     [Header("이동 제한 범위")]
@@ -18,56 +18,39 @@ public class PlayerMove : MonoBehaviour
     [Header("시작위치")]
     private Vector3 _originPosition;
 
+    [Header("스피드 증감")]
+    public float speedIncrease = 1f;
+    public float speedDecrease = -1f;
+    public KeyCode GoBack = KeyCode.R;
+
+
     private void Start()
     {
         _originPosition = transform.position;
     }
 
 
-    [Header("스피드 증감")]
-    public float speedIncrease = 1f;
-    public float speedDecrease = -1f;
-    public KeyCode speedUpKey = KeyCode.Q;
-    public KeyCode speedDownKey = KeyCode.E;
-    public KeyCode GoBack = KeyCode.R;
-    public float maxSpeed = 10f;
-    public float minSpeed = 1f;
-
+    public void SpeedUp(int value)
+    {
+        _speed += value;
+    }
 
 
     private void Update()
     {
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            Speed = 6f;
+            _speed = 6f;
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            Speed = 3f;
+            _speed = 3f;
         }
 
         if (Input.GetKey(GoBack))
         {
             TranslateToOrigin();
             return;
-        }
-
-
-        if (Input.GetKeyDown(speedUpKey))
-        {
-            Speed += speedIncrease;
-            if (Speed > maxSpeed)
-            {
-                Speed = maxSpeed;
-            }
-        }
-        if (Input.GetKeyDown(speedDownKey))
-        {
-            Speed += speedDecrease;
-            if (Speed < minSpeed)
-            {
-                Speed = minSpeed;
-            }
         }
 
        
@@ -82,7 +65,7 @@ public class PlayerMove : MonoBehaviour
 
 
         Vector2 position = transform.position;
-        Vector2 newPosition = position + direction * Speed * Time.deltaTime;
+        Vector2 newPosition = position + direction * _speed * Time.deltaTime;
 
 
         if (newPosition.x > MaxX)
@@ -109,7 +92,7 @@ public class PlayerMove : MonoBehaviour
     private void TranslateToOrigin()
     {
         Vector2 direction = _originPosition - transform.position;
-        transform.Translate(translation: direction * Speed * Time.deltaTime);
+        transform.Translate(translation: direction * _speed * Time.deltaTime);
     }
 }
 

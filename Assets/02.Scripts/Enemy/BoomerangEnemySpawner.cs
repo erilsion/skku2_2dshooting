@@ -12,8 +12,8 @@ public class BoomerangEnemySpawner : MonoBehaviour
     [Header("쿨타임")]
     private float _timer = 0f;
     private float _cooltime;
-    private float _minTime = 8f;
-    private float _maxTime = 12f;
+    private float _minTime = 1f;
+    private float _maxTime = 3f;
 
     [Header("확률")]
     private float _maxRate = 1f;
