@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
 // 플레이어 이동
 public class PlayerMove : MonoBehaviour
 {
+    private Animator _animator;
     // 필요 속성
     [Header("능력치")]
     private float _speed = 3f;
@@ -35,6 +37,7 @@ public class PlayerMove : MonoBehaviour
     private void Start()
     {
         _originPosition = transform.position;
+        _animator = gameObject.GetComponent<Animator>();
     }
 
 
@@ -101,21 +104,43 @@ public class PlayerMove : MonoBehaviour
 
     public void AutoMoveOn()
     {
-        _enemyObject = GameObject.FindWithTag("Enemy");
-        if (_enemyObject == null) return;
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (enemies == null || enemies.Length == 0)
+        {
+            _animator.Play("Idle");
+            return;
+        }
 
-        Vector2 enemyPosition = _enemyObject.transform.position;
+        // 가까운 적 찾는 로직
+        GameObject closestEnemy = enemies[0];
+        float closestDistance = Vector2.Distance(transform.position, enemies[0].transform.position);
+        for (int i = 1; i < enemies.Length; i++)
+        {
+            float distance = Vector2.Distance(transform.position, enemies[i].transform.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestEnemy = enemies[i];
+            }
+        }
 
-        Vector2 direction = (enemyPosition - (Vector2)transform.position).normalized;
+        Vector2 enemyPosition = closestEnemy.transform.position;
+        Vector2 direction = Vector2.zero;
 
-        transform.Translate(direction * (_speed * Time.deltaTime));
+        // 왼쪽이면 왼쪽으로
+        if (enemyPosition.x < transform.position.x)
+        {
+            direction.x = -1;
+            _animator.Play("Left");
+        }
+        // 오른쪽이면 오른쪽으로
+        else
+        {
+            direction.x = 1;
+            _animator.Play("Right");
+        }
 
-        Vector2 newPosition = transform.position;
-
-        newPosition.x = Mathf.Clamp(newPosition.x, MinX, MaxX);
-        newPosition.y = Mathf.Clamp(newPosition.y, MinY, MaxY);
-
-        transform.position = newPosition;
+        transform.Translate(direction * _speed * Time.deltaTime);
     }
 
     private void TranslateToOrigin()
