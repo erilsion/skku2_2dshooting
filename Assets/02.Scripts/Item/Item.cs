@@ -18,7 +18,7 @@ public class Item : MonoBehaviour
     private GameObject _playerObject;
 
     [Header("아이템 이동관련 옵션")]
-    private float _speed = 3f;
+    private float _speed = 8f;
     private float _timer = 0f;
 
     [Header("아이템 효과성능 옵션")]

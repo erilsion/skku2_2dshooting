@@ -26,6 +26,9 @@ public class Enemy : MonoBehaviour
     [Header("플레이어 위치")]
     private GameObject _playerObject;
 
+    [Header("폭발 프리팹")]
+    public GameObject ExplosionPrefab;
+
     [Header("적 능력치 초기값")]
     private float _directionalSpeed = 3f;
     private float _directionalHealth = 300f;
@@ -121,8 +124,15 @@ public class Enemy : MonoBehaviour
         if (_health <= 0f)
         {
             DropItem();
+            MakeExplosionEffect();
             Destroy(this.gameObject);
+
         }
+    }
+
+    private void MakeExplosionEffect()
+    {
+        Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
     }
 
     private void DropItem()
