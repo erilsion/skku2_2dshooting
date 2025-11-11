@@ -26,6 +26,9 @@ public class Item : MonoBehaviour
     private float _healthValue = 1f;
     private float _attackSpeedValue = 0.05f;
 
+    [Header("반짝이 프리팹")]
+    public GameObject ParticlePrefab;
+
 
     void Start()
     {
@@ -67,20 +70,27 @@ public class Item : MonoBehaviour
                 {
                     PlayerMove _playerMove = other.gameObject.GetComponent<PlayerMove>();
                     _playerMove.SpeedUp(_speedValue);
+                    MakeParticleEffect();
                     break;
                 }
             case EItemType.HealthItem:
                 {
                     Player _playerHealth = other.gameObject.GetComponent<Player>();
                     _playerHealth.HealthUp(_healthValue);
+                    MakeParticleEffect();
                     break;
                 }
             case EItemType.AttackSpeedItem:
                 {
                     PlayerFire _playerAttackSpeed = other.GetComponent<PlayerFire>();
                     _playerAttackSpeed.AttackSpeedUp(_attackSpeedValue);
+                    MakeParticleEffect();
                     break;
                 }
         }
+    }
+    private void MakeParticleEffect()
+    {
+        Instantiate(ParticlePrefab, transform.position, Quaternion.identity);
     }
 }

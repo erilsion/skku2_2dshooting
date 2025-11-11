@@ -26,6 +26,10 @@ public class PlayerFire : MonoBehaviour
     private KeyCode NotAutoAtteck2 = KeyCode.Alpha2;
     private bool isAutoAtteck = true;
 
+    [Header("필살기")]
+    private KeyCode SpecialAtteck = KeyCode.Keypad3;
+    private KeyCode SpecialAtteck2 = KeyCode.Alpha3;
+
 
     private void Update()
     {
@@ -47,6 +51,11 @@ public class PlayerFire : MonoBehaviour
         if (isAutoAtteck == true)
         {
             AutoFireOn();
+        }
+
+        if (Input.GetKeyDown(SpecialAtteck) || Input.GetKeyDown(SpecialAtteck2))
+        {
+            SpecialBoom();
         }
 
         // 1. 발사 버튼을 누르고 있으면
@@ -96,5 +105,10 @@ public class PlayerFire : MonoBehaviour
     public void AttackSpeedUp(float value)
     {
         Cooltime -= value;
+    }
+
+    private void SpecialBoom()
+    {
+
     }
 }

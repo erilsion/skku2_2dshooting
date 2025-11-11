@@ -10,8 +10,6 @@ public enum EEnemytype
 
 public class Enemy : MonoBehaviour
 {
-    private Animator _animator;
-
     [Header("적 타입")]
     public EEnemytype Type;
 
@@ -44,6 +42,9 @@ public class Enemy : MonoBehaviour
     public int[] ItemWeights;
     private float _maxRate = 2f;
     private float _minRate = 0f;
+
+    [Header("애니메이션 관련")]
+    private Animator _animator;
 
 
     private void Start()
@@ -123,8 +124,8 @@ public class Enemy : MonoBehaviour
     public void Hit(float damage)
     {
         _health -= damage;
-        _animator.Play("Hit");
-        _animator.Play("Idle");
+        _animator.SetInteger("x", (int)1);
+        _animator.SetInteger("x", (int)0);
 
         if (_health <= 0f)
         {
