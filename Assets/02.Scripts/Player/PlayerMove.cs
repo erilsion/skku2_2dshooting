@@ -18,9 +18,6 @@ public class PlayerMove : MonoBehaviour
     [Header("시작위치")]
     private Vector3 _originPosition;
 
-    [Header("적 위치")]
-    private GameObject _enemyObject;
-
     [Header("스피드 증감")]
     public float speedIncrease = 1f;
     public float speedDecrease = -1f;

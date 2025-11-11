@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2309576710201704342}
   - component: {fileID: 5559666221052023663}
   - component: {fileID: 4376210944766716556}
+  - component: {fileID: 5837662640580032265}
   m_Layer: 0
   m_Name: EnemyTrace
   m_TagString: Enemy
@@ -155,7 +156,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.75, y: 0.75}
     newSize: {x: 1, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -189,3 +190,25 @@ MonoBehaviour:
   - {fileID: 596372586444064239, guid: 4fb7cbd8c7ebb5d44a9b2af148f29078, type: 3}
   - {fileID: 7925050075807218036, guid: eb03268bff5b2f04ab542d45565e1538, type: 3}
   ItemWeights: 14000000460000000a000000
+--- !u!95 &5837662640580032265
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5198665153694218306}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4f680c78b6893c94ea7b530f533884c3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

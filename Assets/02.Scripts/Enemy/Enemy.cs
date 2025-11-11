@@ -10,6 +10,8 @@ public enum EEnemytype
 
 public class Enemy : MonoBehaviour
 {
+    private Animator _animator;
+
     [Header("적 타입")]
     public EEnemytype Type;
 
@@ -47,6 +49,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         _playerObject = GameObject.FindWithTag("Player");
+        _animator = gameObject.GetComponent<Animator>();
 
         switch (Type)
         {
@@ -120,6 +123,8 @@ public class Enemy : MonoBehaviour
     public void Hit(float damage)
     {
         _health -= damage;
+        _animator.Play("Hit");
+        _animator.Play("Idle");
 
         if (_health <= 0f)
         {
@@ -128,7 +133,6 @@ public class Enemy : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-
 
     private void MakeExplosionEffect()
     {
