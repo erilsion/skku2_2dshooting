@@ -126,9 +126,9 @@ public class Enemy : MonoBehaviour
             DropItem();
             MakeExplosionEffect();
             Destroy(this.gameObject);
-
         }
     }
+
 
     private void MakeExplosionEffect()
     {

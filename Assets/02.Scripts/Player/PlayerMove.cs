@@ -88,10 +88,19 @@ public class PlayerMove : MonoBehaviour
 
 
         Vector2 direction = new Vector2(h, v);
-
         direction.Normalize();
 
+        // 움직이기 1. Play 메서드를 이용한 강제 적용
+        // if (direction.x < 0) _animator.Play("Left");
+        // if (direction.x == 0) _animator.Play("Idle");
+        // if (direction.x > 0) _animator.Play("Right");
+        // 장점은 빠르게 쓰기 편하다.
+        // 단점으로 Fade, Timing, State가 무시되고, 남용하기 쉬워서 어디서 어떤 애니메이션을 수정하는지 알 수 없게 된다.
 
+
+        // 움직이기 2.
+        _animator.SetInteger("x", (int)direction.x);
+        // 애니메이터에서 조정하기
 
         Vector2 position = transform.position;
         Vector2 newPosition = position + direction * _speed * Time.deltaTime;
