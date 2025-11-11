@@ -28,9 +28,9 @@ public class Enemy : MonoBehaviour
 
     [Header("적 능력치 초기값")]
     private float _directionalSpeed = 3f;
-    private float _directionalHealth = 100f;
+    private float _directionalHealth = 300f;
     private float _traceSpeed = 2f;
-    private float _traceHealth = 100f;
+    private float _traceHealth = 240f;
     private float _boomerangSpeed = 4f;
     private float _boomerangHealth = 60f;
 

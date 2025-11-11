@@ -55,7 +55,7 @@ public class Bullet : MonoBehaviour
         StartSpeed = 1f;
         EndSpeed = 7f;
         Duration = 1.2f;
-        Damage = 60f;
+        Damage = 40f;
     }
 
     private void Bins()
@@ -63,7 +63,7 @@ public class Bullet : MonoBehaviour
         StartSpeed = 3f;
         EndSpeed = 10f;
         Duration = 0.8f;
-        Damage = 30f;
+        Damage = 10f;
     }
 
     private void Bomb()
@@ -71,7 +71,7 @@ public class Bullet : MonoBehaviour
         StartSpeed = 0.6f;
         EndSpeed = 4f;
         Duration = 2f;
-        Damage = 40f;
+        Damage = 30f;
     }
 
     private void BulletMove()

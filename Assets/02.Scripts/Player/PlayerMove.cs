@@ -16,10 +16,20 @@ public class PlayerMove : MonoBehaviour
     [Header("시작위치")]
     private Vector3 _originPosition;
 
+    [Header("적 위치")]
+    private GameObject _enemyObject;
+
     [Header("스피드 증감")]
     public float speedIncrease = 1f;
     public float speedDecrease = -1f;
     public KeyCode GoBack = KeyCode.R;
+
+    [Header("자동 / 수동 이동")]
+    private KeyCode AutoMove = KeyCode.Keypad1;
+    private KeyCode AutoMove2 = KeyCode.Alpha1;
+    private KeyCode NotAutoMove = KeyCode.Keypad2;
+    private KeyCode NotAutoMove2 = KeyCode.Alpha2;
+    private bool isAutoMove = true;
 
 
     private void Start()
@@ -30,6 +40,28 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
+        switch (Input.GetKeyDown(AutoMove) || Input.GetKeyDown(AutoMove2))
+        {
+            case true:
+                isAutoMove = true;
+                break;
+            case false when Input.GetKeyDown(NotAutoMove) || Input.GetKeyDown(NotAutoMove2):
+                isAutoMove = false;
+                break;
+            case false:
+                break;
+        }
+
+        if (isAutoMove == true)
+        {
+            AutoMoveOn();
+        }
+        else if (isAutoMove == false)
+        {
+            MoveOn();
+        }
+
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
             _speed = 6f;
@@ -44,8 +76,10 @@ public class PlayerMove : MonoBehaviour
             TranslateToOrigin();
             return;
         }
+    }
 
-       
+    public void MoveOn()
+    {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
@@ -59,26 +93,29 @@ public class PlayerMove : MonoBehaviour
         Vector2 position = transform.position;
         Vector2 newPosition = position + direction * _speed * Time.deltaTime;
 
-
-        if (newPosition.x > MaxX)
-        {
-            newPosition.x = MinX;
-        }
-        else if (newPosition.x < MinX)
-        {
-            newPosition.x = MaxX;
-        }
-        if (newPosition.y > MaxY)
-        {
-            newPosition.y = MaxY;
-        }
-        else if (newPosition.y < MinY)
-        {
-            newPosition.y = MinY;
-        }
+        newPosition.x = Mathf.Clamp(newPosition.x, MinX, MaxX);
+        newPosition.y = Mathf.Clamp(newPosition.y, MinY, MaxY);
 
         transform.position = newPosition;
+    }
 
+    public void AutoMoveOn()
+    {
+        _enemyObject = GameObject.FindWithTag("Enemy");
+        if (_enemyObject == null) return;
+
+        Vector2 enemyPosition = _enemyObject.transform.position;
+
+        Vector2 direction = (enemyPosition - (Vector2)transform.position).normalized;
+
+        transform.Translate(direction * (_speed * Time.deltaTime));
+
+        Vector2 newPosition = transform.position;
+
+        newPosition.x = Mathf.Clamp(newPosition.x, MinX, MaxX);
+        newPosition.y = Mathf.Clamp(newPosition.y, MinY, MaxY);
+
+        transform.position = newPosition;
     }
 
     private void TranslateToOrigin()
@@ -92,4 +129,3 @@ public class PlayerMove : MonoBehaviour
         _speed += value;
     }
 }
-
