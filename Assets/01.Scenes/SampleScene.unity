@@ -465,7 +465,7 @@ GameObject:
   - component: {fileID: 994533591}
   - component: {fileID: 994533592}
   m_Layer: 0
-  m_Name: Backgrounds_0
+  m_Name: Backgrounds_Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -481,7 +481,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.0408, y: -0.0204, z: 0}
-  m_LocalScale: {x: 4.0591097, y: 4.186664, z: 1}
+  m_LocalScale: {x: 3.957632, y: 4.186664, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1499865381}
@@ -509,7 +509,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: ea160a5bed5d0ea47bf60c169a6bc091, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -851,9 +851,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 994533591}
-  - {fileID: 2052281162}
   - {fileID: 1650131075}
+  - {fileID: 2052281162}
+  - {fileID: 994533591}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1650131074
@@ -867,7 +867,7 @@ GameObject:
   - component: {fileID: 1650131075}
   - component: {fileID: 1650131076}
   m_Layer: 0
-  m_Name: Backgrounds_2
+  m_Name: Backgrounds_Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -883,7 +883,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.0408, y: -0.0204, z: 0}
-  m_LocalScale: {x: 4.0591097, y: 4.186664, z: 1}
+  m_LocalScale: {x: 3.957632, y: 4.186664, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1499865381}
@@ -961,7 +961,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1776260948192654446, guid: 4953e1a2ea984eb44ac530babb34ccad, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.26
+      value: -7.52
       objectReference: {fileID: 0}
     - target: {fileID: 1776260948192654446, guid: 4953e1a2ea984eb44ac530babb34ccad, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1030,7 +1030,7 @@ Transform:
   m_GameObject: {fileID: 1896623914}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5.8, z: 0}
+  m_LocalPosition: {x: 0, y: 6.74, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1125,7 +1125,7 @@ GameObject:
   - component: {fileID: 2052281162}
   - component: {fileID: 2052281163}
   m_Layer: 0
-  m_Name: Backgrounds_1
+  m_Name: Backgrounds_Middle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1141,7 +1141,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.0408, y: -0.0204, z: 0}
-  m_LocalScale: {x: 4.0591097, y: 4.186664, z: 1}
+  m_LocalScale: {x: 3.957632, y: 4.186664, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1499865381}
