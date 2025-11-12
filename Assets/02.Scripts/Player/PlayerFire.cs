@@ -9,6 +9,8 @@ public class PlayerFire : MonoBehaviour
     public GameObject BulletPrefab;
     public GameObject MiniBullet1Prefab;
     public GameObject MiniBullet2Prefab;
+    public GameObject SpecialBombPrefab;
+
 
     [Header("총구")]
     public Transform FirePosition;
@@ -26,7 +28,7 @@ public class PlayerFire : MonoBehaviour
     private KeyCode NotAutoAtteck2 = KeyCode.Alpha2;
     private bool isAutoAtteck = true;
 
-    [Header("필살기")]
+    [Header("필살기 사용")]
     private KeyCode SpecialAtteck = KeyCode.Keypad3;
     private KeyCode SpecialAtteck2 = KeyCode.Alpha3;
 
@@ -55,7 +57,14 @@ public class PlayerFire : MonoBehaviour
 
         if (Input.GetKeyDown(SpecialAtteck) || Input.GetKeyDown(SpecialAtteck2))
         {
-            SpecialBoom();
+            if (SpecialBombPrefab != null)
+            {
+                Instantiate(SpecialBombPrefab, Vector2.zero, Quaternion.identity);
+            }
+            else
+            {
+                Debug.LogWarning("필살기가 준비되지 않았습니다.");
+            }
         }
 
         // 1. 발사 버튼을 누르고 있으면
@@ -107,8 +116,4 @@ public class PlayerFire : MonoBehaviour
         Cooltime -= value;
     }
 
-    private void SpecialBoom()
-    {
-
-    }
 }
