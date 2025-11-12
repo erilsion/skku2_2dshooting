@@ -127,10 +127,19 @@ public class Enemy : MonoBehaviour
         _animator.SetInteger("x", (int)1);
         _animator.SetInteger("x", (int)0);
 
+        Death();
+    }
+
+    private void Death()
+    {
         if (_health <= 0f)
         {
             DropItem();
             MakeExplosionEffect();
+
+            ScoreManager scoreManager = FindAnyObjectByType<ScoreManager>();
+            scoreManager.AddScore(100); // todo: 매직넘버 수정
+
             Destroy(this.gameObject);
         }
     }
