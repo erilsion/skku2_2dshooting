@@ -16,13 +16,14 @@ public class SpecialBomb : MonoBehaviour
 
     public void Update()
     {
-        _bombTimer += Time.deltaTime;
         MakeParticleEffect();
     }
 
     public void SpecialAttack()
     {
+        _bombTimer += Time.deltaTime;
         if (_bombTimer > _finishTimer) Destroy(gameObject);
+        _bombTimer = 0f;
     }
 
     public void OnTriggerEnter2D(Collider2D other)

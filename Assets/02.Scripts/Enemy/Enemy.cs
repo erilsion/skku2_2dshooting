@@ -49,6 +49,9 @@ public class Enemy : MonoBehaviour
     [Header("점수 관련")]
     private int _killScore = 100;
 
+    [Header("사운드")]
+    public AudioSource EnemyDeathSound;
+
 
     private void Start()
     {
@@ -127,8 +130,11 @@ public class Enemy : MonoBehaviour
     public void Hit(float damage)
     {
         _health -= damage;
-        _animator.SetInteger("x", (int)1);
-        _animator.SetInteger("x", (int)0);
+        if (_animator != null)
+        {
+            _animator.SetInteger("x", 1);
+            _animator.SetInteger("x", 0);
+        }
 
         Death();
     }

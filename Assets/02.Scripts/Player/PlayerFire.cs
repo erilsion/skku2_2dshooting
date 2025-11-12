@@ -34,6 +34,10 @@ public class PlayerFire : MonoBehaviour
     private KeyCode SpecialAtteck = KeyCode.Keypad3;
     private KeyCode SpecialAtteck2 = KeyCode.Alpha3;
 
+    [Header("사운드")]
+    public AudioSource FireSound;
+    public AudioSource SpecialAttackSound;
+
 
     private void Update()
     {
@@ -59,6 +63,7 @@ public class PlayerFire : MonoBehaviour
 
         if (Input.GetKeyDown(SpecialAtteck) || Input.GetKeyDown(SpecialAtteck2))
         {
+            SpecialAttackSound.Play();
             SpecialAttackOn();
         }
 
@@ -95,6 +100,7 @@ public class PlayerFire : MonoBehaviour
         // 3. 총알 생성 후 위치를 플레이어 위치로 수정한다.
         bullet1.transform.position = FirePosition.position + TwoBullet;
         bullet2.transform.position = FirePosition.position - TwoBullet;
+        FireSound.Play();
     }
 
     private void MakeSubBullets()

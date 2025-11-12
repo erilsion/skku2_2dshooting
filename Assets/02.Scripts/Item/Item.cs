@@ -29,6 +29,9 @@ public class Item : MonoBehaviour
     [Header("파티클 프리팹")]
     public GameObject ParticlePrefab;
 
+    [Header("사운드")]
+    public AudioClip GetItemSound;
+
 
     void Start()
     {
@@ -42,6 +45,7 @@ public class Item : MonoBehaviour
         if (_timer < 2f) return;
         ItemMove();
     }
+
     private void ItemMove()
     {
         if (_playerObject == null) return;
@@ -70,26 +74,26 @@ public class Item : MonoBehaviour
                 {
                     PlayerMove _playerMove = other.gameObject.GetComponent<PlayerMove>();
                     _playerMove.SpeedUp(_speedValue);
-                    MakeParticleEffect();
+                    MakeEffect();
                     break;
                 }
             case EItemType.HealthItem:
                 {
                     Player _playerHealth = other.gameObject.GetComponent<Player>();
                     _playerHealth.HealthUp(_healthValue);
-                    MakeParticleEffect();
+                    MakeEffect();
                     break;
                 }
             case EItemType.AttackSpeedItem:
                 {
                     PlayerFire _playerAttackSpeed = other.GetComponent<PlayerFire>();
                     _playerAttackSpeed.AttackSpeedUp(_attackSpeedValue);
-                    MakeParticleEffect();
+                    MakeEffect();
                     break;
                 }
         }
     }
-    private void MakeParticleEffect()
+    private void MakeEffect()
     {
         Instantiate(ParticlePrefab, transform.position, Quaternion.identity);
     }
