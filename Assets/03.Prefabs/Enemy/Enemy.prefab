@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2628074674282308005}
   - component: {fileID: 7743557176663769083}
   - component: {fileID: -7898439998823272195}
+  - component: {fileID: 3135173870762855494}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -79,8 +80,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -712631045867808456, guid: b670ab75dde984907b8570040daa08c5, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.6585641, a: 1}
+  m_Sprite: {fileID: -8421458170528590454, guid: 138040323294fd440a3a823e5d70ad01, type: 3}
+  m_Color: {r: 1, g: 0.8679245, b: 0.95493895, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -168,8 +169,31 @@ MonoBehaviour:
   Type: 0
   Speed: 3
   Damage: 1
+  ExplosionPrefab: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
   ItemPrefabs:
   - {fileID: 7677222038300743173, guid: 10351dc3512c6b6448383484089b75e7, type: 3}
   - {fileID: 596372586444064239, guid: 4fb7cbd8c7ebb5d44a9b2af148f29078, type: 3}
   - {fileID: 7925050075807218036, guid: eb03268bff5b2f04ab542d45565e1538, type: 3}
   ItemWeights: 14000000460000000a000000
+--- !u!95 &3135173870762855494
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6298024469186185139}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e2534025677be3848aa09b1058592433, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

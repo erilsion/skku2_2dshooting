@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
 // 플레이어 이동
 public class PlayerMove : MonoBehaviour
 {
+    private Animator _animator;
     // 필요 속성
     [Header("능력치")]
     private float _speed = 3f;
@@ -15,9 +17,6 @@ public class PlayerMove : MonoBehaviour
 
     [Header("시작위치")]
     private Vector3 _originPosition;
-
-    [Header("적 위치")]
-    private GameObject _enemyObject;
 
     [Header("스피드 증감")]
     public float speedIncrease = 1f;
@@ -35,6 +34,7 @@ public class PlayerMove : MonoBehaviour
     private void Start()
     {
         _originPosition = transform.position;
+        _animator = gameObject.GetComponent<Animator>();
     }
 
 
@@ -85,10 +85,19 @@ public class PlayerMove : MonoBehaviour
 
 
         Vector2 direction = new Vector2(h, v);
-
         direction.Normalize();
 
+        // 움직이기 1. Play 메서드를 이용한 강제 적용
+        // if (direction.x < 0) _animator.Play("Left");
+        // if (direction.x == 0) _animator.Play("Idle");
+        // if (direction.x > 0) _animator.Play("Right");
+        // 장점은 빠르게 쓰기 편하다.
+        // 단점으로 Fade, Timing, State가 무시되고, 남용하기 쉬워서 어디서 어떤 애니메이션을 수정하는지 알 수 없게 된다.
 
+
+        // 움직이기 2.
+        _animator.SetInteger("x", (int)direction.x);
+        // 애니메이터에서 조정하기
 
         Vector2 position = transform.position;
         Vector2 newPosition = position + direction * _speed * Time.deltaTime;
@@ -101,21 +110,43 @@ public class PlayerMove : MonoBehaviour
 
     public void AutoMoveOn()
     {
-        _enemyObject = GameObject.FindWithTag("Enemy");
-        if (_enemyObject == null) return;
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (enemies == null || enemies.Length == 0)
+        {
+            _animator.Play("Idle");
+            return;
+        }
 
-        Vector2 enemyPosition = _enemyObject.transform.position;
+        // 가까운 적 찾는 로직
+        GameObject closestEnemy = enemies[0];
+        float closestDistance = Vector2.Distance(transform.position, enemies[0].transform.position);
+        for (int i = 1; i < enemies.Length; i++)
+        {
+            float distance = Vector2.Distance(transform.position, enemies[i].transform.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestEnemy = enemies[i];
+            }
+        }
 
-        Vector2 direction = (enemyPosition - (Vector2)transform.position).normalized;
+        Vector2 enemyPosition = closestEnemy.transform.position;
+        Vector2 direction = Vector2.zero;
 
-        transform.Translate(direction * (_speed * Time.deltaTime));
+        // 왼쪽이면 왼쪽으로
+        if (enemyPosition.x < transform.position.x)
+        {
+            direction.x = -1;
+            _animator.Play("Left");
+        }
+        // 오른쪽이면 오른쪽으로
+        else
+        {
+            direction.x = 1;
+            _animator.Play("Right");
+        }
 
-        Vector2 newPosition = transform.position;
-
-        newPosition.x = Mathf.Clamp(newPosition.x, MinX, MaxX);
-        newPosition.y = Mathf.Clamp(newPosition.y, MinY, MaxY);
-
-        transform.position = newPosition;
+        transform.Translate(direction * _speed * Time.deltaTime);
     }
 
     private void TranslateToOrigin()

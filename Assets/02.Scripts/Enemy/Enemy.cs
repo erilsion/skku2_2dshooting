@@ -26,6 +26,9 @@ public class Enemy : MonoBehaviour
     [Header("플레이어 위치")]
     private GameObject _playerObject;
 
+    [Header("폭발 프리팹")]
+    public GameObject ExplosionPrefab;
+
     [Header("적 능력치 초기값")]
     private float _directionalSpeed = 3f;
     private float _directionalHealth = 300f;
@@ -40,10 +43,17 @@ public class Enemy : MonoBehaviour
     private float _maxRate = 2f;
     private float _minRate = 0f;
 
+    [Header("애니메이션 관련")]
+    private Animator _animator;
+
+    [Header("점수 관련")]
+    private int _killScore = 100;
+
 
     private void Start()
     {
         _playerObject = GameObject.FindWithTag("Player");
+        _animator = gameObject.GetComponent<Animator>();
 
         switch (Type)
         {
@@ -117,12 +127,29 @@ public class Enemy : MonoBehaviour
     public void Hit(float damage)
     {
         _health -= damage;
+        _animator.SetInteger("x", (int)1);
+        _animator.SetInteger("x", (int)0);
 
+        Death();
+    }
+
+    private void Death()
+    {
         if (_health <= 0f)
         {
             DropItem();
+            MakeExplosionEffect();
+
+            ScoreManager scoreManager = FindAnyObjectByType<ScoreManager>();
+            scoreManager.AddScore(_killScore);
+
             Destroy(this.gameObject);
         }
+    }
+
+    private void MakeExplosionEffect()
+    {
+        Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
     }
 
     private void DropItem()
