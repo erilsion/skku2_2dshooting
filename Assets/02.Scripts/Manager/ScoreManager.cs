@@ -13,10 +13,14 @@ public class ScoreManager : MonoBehaviour
     // 필요 속성: 현재 점수 UI(Text 컴포넌트), 현재 점수를 기억할 변수
 
     // 규칙: UI 요소는 항상 변수명 뒤에 UI라고 붙인다.
-    [SerializeField] private Text _currentScoreTextUI;
+    [SerializeField]
+    private Text _currentScoreTextUI;
+    [SerializeField]
+    private Text _highScoreTextUI;
 
-    [Header("점수")]
     private int _currentScore = 0;
+    private int _highScore = 0;
+    private const string ScoreKey = "Score";
 
 
     void Start()
@@ -33,13 +37,19 @@ public class ScoreManager : MonoBehaviour
 
         _currentScore += score;
 
+        if (_currentScore >= _highScore)
+        {
+            _highScore = _currentScore;
+        }
+
         Refresh();
         Save();
     }
 
     public void Refresh()
     {
-        _currentScoreTextUI.text = $"현재 점수: {_currentScore:NO}";
+        _currentScoreTextUI.text = $"현재 점수: {_currentScore}";
+        _highScoreTextUI.text = $"최고 점수: {_highScore}";
     }
 
     private void Save()
@@ -50,18 +60,23 @@ public class ScoreManager : MonoBehaviour
         // 저장: Set
         // 로드: Get
 
-        PlayerPrefs.SetInt("score", _currentScore);
+        PlayerPrefs.SetInt(ScoreKey, _currentScore);
+        if (_currentScore >= _highScore)
+        {
+            PlayerPrefs.SetInt(ScoreKey, _highScore);
+        }
     }
+
     private void Load()
     {
-        int score = 0;
-        if (PlayerPrefs.HasKey("score"))   // 값이 없을 경우 1. 검사
-        {
-            score = PlayerPrefs.GetInt("score");
-        }
+        // int score = 0;
+        // if (PlayerPrefs.HasKey("score"))   // 값이 없을 경우 1. 검사
+        // {
+        //     score = PlayerPrefs.GetInt("score");
+        // }
 
         // string name = PlayerPrefs.GetString("name", "티모");   // 2. default 인자
-
-        Debug.Log($"{score}");
+        _highScore = PlayerPrefs.GetInt(ScoreKey, _highScore);
+        _currentScore = 0;
     }
 }
