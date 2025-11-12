@@ -18,38 +18,31 @@ public class ScoreManager : MonoBehaviour
     [Header("점수")]
     private int _currentScore = 0;
 
+
     void Start()
     {
+        Load();
         Refresh();
     }
 
-    void Update()
-    {
-        Refresh();
-
-        if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            TestSave();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            TestLoad();
-        }
-    }
+    // 하나의 메소드는 한 가지 일만 잘 하면 된다.
 
     public void AddScore(int score)
     {
         if (score <= 0) return;
 
         _currentScore += score;
+
+        Refresh();
+        Save();
     }
 
     public void Refresh()
     {
-        _currentScoreTextUI.text = $"현재 점수: {_currentScore}";
+        _currentScoreTextUI.text = $"현재 점수: {_currentScore:NO}";
     }
 
-    private void TestSave()
+    private void Save()
     {
         // 유니티에서는 값을 저장할 때 'PlayerPrefs' 모듈을 쓴다.
         // 저장 가능한 자료형은 int, float, string
@@ -58,9 +51,8 @@ public class ScoreManager : MonoBehaviour
         // 로드: Get
 
         PlayerPrefs.SetInt("score", _currentScore);
-        Debug.Log("저장됐습니다.");
     }
-    private void TestLoad()
+    private void Load()
     {
         int score = 0;
         if (PlayerPrefs.HasKey("score"))   // 값이 없을 경우 1. 검사
