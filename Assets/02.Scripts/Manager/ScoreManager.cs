@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
+using DG.Tweening;
+
 
 public class ScoreManager : MonoBehaviour
 {
@@ -21,6 +23,9 @@ public class ScoreManager : MonoBehaviour
     private int _currentScore = 0;
     private int _highScore = 0;
     private const string ScoreKey = "Score";
+    private Vector2 _scoreEffect = new Vector2(1.3f, 1.3f);
+    private Vector2 _scoreEffectOrigin = new Vector2(1f, 1f);
+    private float _scoreEffectTime = 0.2f;
 
 
     void Start()
@@ -36,6 +41,9 @@ public class ScoreManager : MonoBehaviour
         if (score <= 0) return;
 
         _currentScore += score;
+
+        _currentScoreTextUI.transform.DOScale(_scoreEffect, _scoreEffectTime)
+        .OnComplete(() => { _currentScoreTextUI.transform.DOScale(_scoreEffectOrigin, _scoreEffectTime); });
 
         if (_currentScore >= _highScore)
         {
