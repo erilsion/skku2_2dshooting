@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
+using DG.Tweening;
+
 
 public class ScoreManager : MonoBehaviour
 {
@@ -13,43 +15,52 @@ public class ScoreManager : MonoBehaviour
     // 필요 속성: 현재 점수 UI(Text 컴포넌트), 현재 점수를 기억할 변수
 
     // 규칙: UI 요소는 항상 변수명 뒤에 UI라고 붙인다.
-    [SerializeField] private Text _currentScoreTextUI;
+    [SerializeField]
+    private Text _currentScoreTextUI;
+    [SerializeField]
+    private Text _highScoreTextUI;
 
-    [Header("점수")]
     private int _currentScore = 0;
+    private int _highScore = 0;
+    private const string ScoreKey = "Score";
+    private Vector2 _scoreEffect = new Vector2(1.3f, 1.3f);
+    private Vector2 _scoreEffectOrigin = new Vector2(1f, 1f);
+    private float _scoreEffectTime = 0.2f;
+
 
     void Start()
     {
+        Load();
         Refresh();
     }
 
-    void Update()
-    {
-        Refresh();
-
-        if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            TestSave();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            TestLoad();
-        }
-    }
+    // 하나의 메소드는 한 가지 일만 잘 하면 된다.
 
     public void AddScore(int score)
     {
         if (score <= 0) return;
 
         _currentScore += score;
+
+        _currentScoreTextUI.transform.DOScale(_scoreEffect, _scoreEffectTime)
+        .OnComplete(() => { _currentScoreTextUI.transform.DOScale(_scoreEffectOrigin, _scoreEffectTime); });
+
+        if (_currentScore >= _highScore)
+        {
+            _highScore = _currentScore;
+        }
+
+        Refresh();
+        Save();
     }
 
     public void Refresh()
     {
         _currentScoreTextUI.text = $"현재 점수: {_currentScore}";
+        _highScoreTextUI.text = $"최고 점수: {_highScore}";
     }
 
-    private void TestSave()
+    private void Save()
     {
         // 유니티에서는 값을 저장할 때 'PlayerPrefs' 모듈을 쓴다.
         // 저장 가능한 자료형은 int, float, string
@@ -57,19 +68,23 @@ public class ScoreManager : MonoBehaviour
         // 저장: Set
         // 로드: Get
 
-        PlayerPrefs.SetInt("score", _currentScore);
-        Debug.Log("저장됐습니다.");
-    }
-    private void TestLoad()
-    {
-        int score = 0;
-        if (PlayerPrefs.HasKey("score"))   // 값이 없을 경우 1. 검사
+        PlayerPrefs.SetInt(ScoreKey, _currentScore);
+        if (_currentScore >= _highScore)
         {
-            score = PlayerPrefs.GetInt("score");
+            PlayerPrefs.SetInt(ScoreKey, _highScore);
         }
+    }
+
+    private void Load()
+    {
+        // int score = 0;
+        // if (PlayerPrefs.HasKey("score"))   // 값이 없을 경우 1. 검사
+        // {
+        //     score = PlayerPrefs.GetInt("score");
+        // }
 
         // string name = PlayerPrefs.GetString("name", "티모");   // 2. default 인자
-
-        Debug.Log($"{score}");
+        _highScore = PlayerPrefs.GetInt(ScoreKey, _highScore);
+        _currentScore = 0;
     }
 }
