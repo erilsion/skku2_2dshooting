@@ -1,12 +1,12 @@
 ﻿using Unity.VisualScripting;
 using UnityEngine;
+
 public enum EItemType
 {
     SpeedItem,
     HealthItem,
     AttackSpeedItem
 }
-
 
 public class Item : MonoBehaviour
 {
@@ -26,7 +26,7 @@ public class Item : MonoBehaviour
     private float _healthValue = 1f;
     private float _attackSpeedValue = 0.05f;
 
-    [Header("반짝이 프리팹")]
+    [Header("파티클 프리팹")]
     public GameObject ParticlePrefab;
 
 

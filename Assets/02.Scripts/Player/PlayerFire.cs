@@ -14,8 +14,10 @@ public class PlayerFire : MonoBehaviour
 
     [Header("총구")]
     public Transform FirePosition;
+    public Transform SpecialAttackPosition;
     public Vector3 TwoBullet = new Vector2(0.5f, 0);  // FireOffset
     public Vector3 MiniBulletOffset = new Vector2(-1f, 0);  // 추후 수정에는 총구 따로 만드는 게 좋다.
+
 
     [Header("쿨타임")]
     private float _fireTimer = 0f;
@@ -57,14 +59,7 @@ public class PlayerFire : MonoBehaviour
 
         if (Input.GetKeyDown(SpecialAtteck) || Input.GetKeyDown(SpecialAtteck2))
         {
-            if (SpecialBombPrefab != null)
-            {
-                Instantiate(SpecialBombPrefab, Vector2.zero, Quaternion.identity);
-            }
-            else
-            {
-                Debug.LogWarning("필살기가 준비되지 않았습니다.");
-            }
+            SpecialAttackOn();
         }
 
         // 1. 발사 버튼을 누르고 있으면
@@ -116,4 +111,16 @@ public class PlayerFire : MonoBehaviour
         Cooltime -= value;
     }
 
+    public void SpecialAttackOn()
+    {
+        if (SpecialBombPrefab != null)
+        {
+            GameObject SpecialBomb = Instantiate(SpecialBombPrefab);
+            SpecialBomb.transform.position = SpecialAttackPosition.position;
+        }
+        else
+        {
+            Debug.Log("필살기가 준비되지 않았습니다.");
+        }
+    }
 }
