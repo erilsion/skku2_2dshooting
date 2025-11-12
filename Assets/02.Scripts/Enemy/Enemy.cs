@@ -46,6 +46,9 @@ public class Enemy : MonoBehaviour
     [Header("애니메이션 관련")]
     private Animator _animator;
 
+    [Header("점수 관련")]
+    private int _killScore = 100;
+
 
     private void Start()
     {
@@ -138,7 +141,7 @@ public class Enemy : MonoBehaviour
             MakeExplosionEffect();
 
             ScoreManager scoreManager = FindAnyObjectByType<ScoreManager>();
-            scoreManager.AddScore(100); // todo: 매직넘버 수정
+            scoreManager.AddScore(_killScore);
 
             Destroy(this.gameObject);
         }
