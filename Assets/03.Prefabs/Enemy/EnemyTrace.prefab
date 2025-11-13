@@ -190,6 +190,8 @@ MonoBehaviour:
   - {fileID: 596372586444064239, guid: 4fb7cbd8c7ebb5d44a9b2af148f29078, type: 3}
   - {fileID: 7925050075807218036, guid: eb03268bff5b2f04ab542d45565e1538, type: 3}
   ItemWeights: 14000000460000000a000000
+  _enemyDeathSound: {fileID: 8300000, guid: ba16f937a8e1a1d459210b95f624180b, type: 3}
+  _enemyDeathSoundVolume: 1
 --- !u!95 &5837662640580032265
 Animator:
   serializedVersion: 7

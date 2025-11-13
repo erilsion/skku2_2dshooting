@@ -30,8 +30,10 @@ public class Item : MonoBehaviour
     public GameObject ParticlePrefab;
 
     [Header("사운드")]
-    public AudioClip GetItemSound;
-
+    [SerializeField]
+    private AudioClip _getItemSound;
+    [Range(0f, 1f)]
+    public float _getItemSoundVolume = 1f;
 
     void Start()
     {
@@ -74,27 +76,38 @@ public class Item : MonoBehaviour
                 {
                     PlayerMove _playerMove = other.gameObject.GetComponent<PlayerMove>();
                     _playerMove.SpeedUp(_speedValue);
-                    MakeEffect();
+                    MakeParticleEffect();
+                    MakeGetSoundEffect();
                     break;
                 }
             case EItemType.HealthItem:
                 {
                     Player _playerHealth = other.gameObject.GetComponent<Player>();
                     _playerHealth.HealthUp(_healthValue);
-                    MakeEffect();
+                    MakeParticleEffect();
+                    MakeGetSoundEffect();
                     break;
                 }
             case EItemType.AttackSpeedItem:
                 {
                     PlayerFire _playerAttackSpeed = other.GetComponent<PlayerFire>();
                     _playerAttackSpeed.AttackSpeedUp(_attackSpeedValue);
-                    MakeEffect();
+                    MakeParticleEffect();
+                    MakeGetSoundEffect();
                     break;
                 }
         }
     }
-    private void MakeEffect()
+    private void MakeParticleEffect()
     {
         Instantiate(ParticlePrefab, transform.position, Quaternion.identity);
+    }
+
+    private void MakeGetSoundEffect()
+    {
+        if (_getItemSound != null)
+        {
+            AudioSource.PlayClipAtPoint(_getItemSound, transform.position, _getItemSoundVolume);
+        }
     }
 }

@@ -50,13 +50,17 @@ public class Enemy : MonoBehaviour
     private int _killScore = 100;
 
     [Header("사운드")]
-    public AudioSource EnemyDeathSound;
+    [SerializeField]
+    private AudioClip _enemyDeathSound;
+    [Range(0f, 1f)]
+    public float _enemyDeathSoundVolume = 1f;
 
 
     private void Start()
     {
         _playerObject = GameObject.FindWithTag("Player");
         _animator = gameObject.GetComponent<Animator>();
+
 
         switch (Type)
         {
@@ -146,9 +150,9 @@ public class Enemy : MonoBehaviour
             DropItem();
             MakeExplosionEffect();
 
-            ScoreManager scoreManager = FindAnyObjectByType<ScoreManager>();
-            scoreManager.AddScore(_killScore);
+            EnemyKilledSound();
 
+            EnemyKillScore();
             Destroy(this.gameObject);
         }
     }
@@ -207,5 +211,22 @@ public class Enemy : MonoBehaviour
     private void BoomerangAttack()
     {
 
+    }
+
+    private void EnemyKillScore()
+    {
+        ScoreManager scoreManager = FindAnyObjectByType<ScoreManager>();
+        if (scoreManager != null)
+        {
+            scoreManager.AddScore(_killScore);
+        }
+    }
+
+    private void EnemyKilledSound()
+    {
+        if (_enemyDeathSound != null)
+        {
+            AudioSource.PlayClipAtPoint(_enemyDeathSound, transform.position, _enemyDeathSoundVolume);
+        }
     }
 }
