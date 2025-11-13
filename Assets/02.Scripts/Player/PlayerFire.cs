@@ -4,19 +4,11 @@ using UnityEngine;
 
 public class PlayerFire : MonoBehaviour
 {
-    // 필요 속성
-    [Header("총알 프리팹")]
-    public GameObject BulletPrefab;
-    public GameObject MiniBullet1Prefab;
-    public GameObject MiniBullet2Prefab;
-    public GameObject SpecialBombPrefab;
-
-
     [Header("총구")]
     public Transform FirePosition;
     public Transform SpecialAttackPosition;
-    public Vector3 TwoBullet = new Vector2(0.5f, 0);  // FireOffset
-    public Vector3 MiniBulletOffset = new Vector2(-1f, 0);  // 추후 수정에는 총구 따로 만드는 게 좋다.
+    public float TwoBullet = 0.5f;  // FireOffset
+    public float MiniBulletOffset = -1f;  // 추후 수정에는 총구 따로 만드는 게 좋다.
 
 
     [Header("쿨타임")]
@@ -63,7 +55,6 @@ public class PlayerFire : MonoBehaviour
 
         if (Input.GetKeyDown(SpecialAtteck) || Input.GetKeyDown(SpecialAtteck2))
         {
-            SpecialAttackSound.Play();
             SpecialAttackOn();
         }
 
@@ -88,28 +79,21 @@ public class PlayerFire : MonoBehaviour
         }
     }
 
+    // 총알 (프리팹) - 생성 로직이 바뀔 때마다 아래 모든 코드가 수정되어야한다.
+    // ㄴ 총알 생성이라는 행위 자체를 담당하는 클래스를 만들면 편하지 않을까? => 팩토리
+    // ㄴ 총알 생성기 (타입, 대미지, 위치, 생성이펙트); => 불렛팩토리
+
     private void MakeBullets()
     {
-        // 2. 프리팹으로부터 총알(게임 오브젝트)을 생성한다.
-        // 유니티에서 게임 오브젝트를 생성할 때는 new가 Instantiate 라는 메서드를 이용한다.
-        // 클래스 -> 객체(속성+기능) -> 메모리에 로드된 객체를 인스턴스 => 인스턴스화
-        GameObject bullet1 = Instantiate(BulletPrefab);
-        GameObject bullet2 = Instantiate(BulletPrefab);
-
-
-        // 3. 총알 생성 후 위치를 플레이어 위치로 수정한다.
-        bullet1.transform.position = FirePosition.position + TwoBullet;
-        bullet2.transform.position = FirePosition.position - TwoBullet;
+        BulletFactory.Instance.MakeBullet(FirePosition.position + new Vector3(+TwoBullet, 0, 0));
+        BulletFactory.Instance.MakeBullet(FirePosition.position + new Vector3(-TwoBullet, 0, 0));
         FireSound.Play();
     }
 
     private void MakeSubBullets()
     {
-        GameObject Minibullet1 = Instantiate(MiniBullet1Prefab);
-        GameObject Minibullet2 = Instantiate(MiniBullet2Prefab);
-
-        Minibullet1.transform.position = transform.position + MiniBulletOffset;
-        Minibullet2.transform.position = transform.position - MiniBulletOffset;
+        BulletFactory.Instance.MakeMiniBullet1(FirePosition.position + new Vector3(+MiniBulletOffset, 0, 0));
+        BulletFactory.Instance.MakeMiniBullet2(FirePosition.position + new Vector3(-MiniBulletOffset, 0, 0));
     }
 
     public void AttackSpeedUp(float value)
@@ -119,14 +103,7 @@ public class PlayerFire : MonoBehaviour
 
     public void SpecialAttackOn()
     {
-        if (SpecialBombPrefab != null)
-        {
-            GameObject SpecialBomb = Instantiate(SpecialBombPrefab);
-            SpecialBomb.transform.position = SpecialAttackPosition.position;
-        }
-        else
-        {
-            Debug.Log("필살기가 준비되지 않았습니다.");
-        }
+        SpecialAttackSound.Play();
+        BulletFactory.Instance.MakeSpecialBomb(SpecialAttackPosition.position);
     }
 }

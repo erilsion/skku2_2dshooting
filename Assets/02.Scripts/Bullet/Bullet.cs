@@ -95,6 +95,6 @@ public class Bullet : MonoBehaviour
 
         enemy.Hit(Damage);
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

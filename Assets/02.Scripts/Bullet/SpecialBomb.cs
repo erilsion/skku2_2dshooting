@@ -8,23 +8,39 @@ public class SpecialBomb : MonoBehaviour
     [Header("쿨타임")]
     private float _bombTimer = 0f;
     private float _finishTimer = 3f;
+    private bool _finished = false;
 
     [Header("파티클 프리팹")]
     public GameObject PlayerEffectPrefab;
     public GameObject ParticlePrefab;
 
+    private void Start()
+    {
+        _bombTimer = 0f;
+        _finishTimer = 3f;
+    }
 
     public void Update()
     {
-        MakeParticleEffect();
+        _bombTimer += Time.deltaTime;
+
+        if (_bombTimer >= _finishTimer && !_finished)
+        {
+            Explode();
+        }
     }
 
-    public void SpecialAttack()
+    private void Explode()
     {
-        _bombTimer += Time.deltaTime;
-        if (_bombTimer > _finishTimer) Destroy(gameObject);
-        _bombTimer = 0f;
+        _finished = true;
+
+        if (SpecialBombPrefab != null)
+        {
+            MakeParticleEffect();
+        }
+        FinishSpecial();
     }
+
 
     public void OnTriggerEnter2D(Collider2D other)
     {
@@ -35,6 +51,13 @@ public class SpecialBomb : MonoBehaviour
     private void MakeParticleEffect()
     {
         Instantiate(PlayerEffectPrefab, transform.position, Quaternion.identity);
-        Instantiate(ParticlePrefab, SpecialBombPrefab.transform.position, Quaternion.identity);
+        Instantiate(ParticlePrefab, transform.position, Quaternion.identity);
+    }
+
+    private void FinishSpecial()
+    {
+        if (PlayerEffectPrefab != null) Destroy(PlayerEffectPrefab);
+        if (ParticlePrefab != null) Destroy(ParticlePrefab);
+        Destroy(gameObject);
     }
 }

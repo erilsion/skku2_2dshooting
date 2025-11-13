@@ -1253,14 +1253,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a168054cc50f9a9489ed86f0e6141140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletPrefab: {fileID: 6412167869773182766, guid: c3c19eb0454743c418af6abdc4b5ecf7, type: 3}
-  MiniBullet1Prefab: {fileID: 3762592075760517474, guid: ba0f01bcfad7e5142af32b04a5b041d3, type: 3}
-  MiniBullet2Prefab: {fileID: 320124065123496355, guid: 5fe9dcda5e95078429947a6c538ac510, type: 3}
-  SpecialBombPrefab: {fileID: 5895174758087613314, guid: 619189f1c79f7244aacd498d376f8c4d, type: 3}
   FirePosition: {fileID: 661345152}
   SpecialAttackPosition: {fileID: 763451805}
-  TwoBullet: {x: 0.5, y: 0, z: 0}
-  MiniBulletOffset: {x: -1, y: 0, z: 0}
+  TwoBullet: 0.5
+  MiniBulletOffset: -1
   FireSound: {fileID: 283440730}
   SpecialAttackSound: {fileID: 823790443}
 --- !u!50 &1434819584
@@ -1534,6 +1530,54 @@ Transform:
   - {fileID: 1650131075}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1575730252
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1575730253}
+  - component: {fileID: 1575730254}
+  m_Layer: 0
+  m_Name: BulletFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1575730253
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575730252}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1575730254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575730252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c46ef52800ff92644834f363c2804919, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BulletPrefab: {fileID: 6412167869773182766, guid: c3c19eb0454743c418af6abdc4b5ecf7, type: 3}
+  MiniBullet1Prefab: {fileID: 3762592075760517474, guid: ba0f01bcfad7e5142af32b04a5b041d3, type: 3}
+  MiniBullet2Prefab: {fileID: 320124065123496355, guid: 5fe9dcda5e95078429947a6c538ac510, type: 3}
+  SpecialBombPrefab: {fileID: 5895174758087613314, guid: 619189f1c79f7244aacd498d376f8c4d, type: 3}
 --- !u!1 &1650131074
 GameObject:
   m_ObjectHideFlags: 0
@@ -2295,3 +2339,4 @@ SceneRoots:
   - {fileID: 1722009544}
   - {fileID: 651316595}
   - {fileID: 1916752457}
+  - {fileID: 1575730253}

@@ -29,7 +29,6 @@ public class ScoreManager : MonoBehaviour
             Destroy(this.gameObject);
             return;
         }
-
         _instance = this;
     }
 

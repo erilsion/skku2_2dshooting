@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 8439646126621099269}
   - component: {fileID: 8022710531200793366}
   - component: {fileID: 8801590998037331829}
-  - component: {fileID: 5650928991475912093}
-  - component: {fileID: 9161495566913135167}
+  - component: {fileID: 2547792684174723103}
+  - component: {fileID: 106335146798441316}
   m_Layer: 0
-  m_Name: SpecialAttack
+  m_Name: SpecialBomb
   m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,7 +128,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!50 &5650928991475912093
+--- !u!50 &2547792684174723103
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -155,7 +155,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &9161495566913135167
+--- !u!58 &106335146798441316
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -185,9 +185,9 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 3, y: 0}
+  m_Offset: {x: 0, y: 0}
   m_Radius: 3
