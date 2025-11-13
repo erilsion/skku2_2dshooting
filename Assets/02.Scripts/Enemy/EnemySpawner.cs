@@ -4,10 +4,6 @@ using Random = UnityEngine.Random;  // 다른 랜덤 함수가 자동으로 쳐�
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("적 프리팹")]
-    // 프리팹을 참조할 배열
-    public GameObject[] EnemyPrefab;
-
     [Header("스포너 위치")]
     public Transform SpawnerPosition;
     public float SpawnRangeX = 1.8f;
@@ -46,14 +42,12 @@ public class EnemySpawner : MonoBehaviour
         float SpawnNumber = Random.Range(_minRate, _maxRate);
         if (SpawnNumber > _enemyRate)
         {
-            GameObject _enemy = Instantiate(EnemyPrefab[(int)EEnemytype.Directional]);  // 열거형의 번호를 넣어줌
-            _enemy.transform.position = SpawnerPosition.position;
-
+            EnemyFactory.Instance.MakeEnemy(SpawnerPosition.position);
         }
+
         else
         {
-            GameObject _enemy = Instantiate(EnemyPrefab[(int)EEnemytype.Trace]);
-            _enemy.transform.position = SpawnerPosition.position;
+            EnemyFactory.Instance.MakeEnemyTrace(SpawnerPosition.position);
         }
         SpawnNumber = 0f;
     }

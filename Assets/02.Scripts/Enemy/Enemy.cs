@@ -153,7 +153,7 @@ public class Enemy : MonoBehaviour
             EnemyKilledSound();
 
             EnemyKillScore();
-            Destroy(this.gameObject);
+            gameObject.SetActive(false);
         }
     }
 

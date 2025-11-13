@@ -15,6 +15,8 @@ public class BulletFactory : MonoBehaviour
         _instance = this;
 
         PoolInit();
+        Mini1PoolInit();
+        Mini2PoolInit();
     }
 
 
@@ -28,7 +30,8 @@ public class BulletFactory : MonoBehaviour
     [Header("풀링")]
     public int PoolSize = 30;
     private GameObject[] _bulletObjectPool;  // 게임 총알을 담아둘 풀: 탄창
-
+    private GameObject[] _miniBullet1ObjectPool;
+    private GameObject[] _miniBullet2ObjectPool;
 
     // 풀(탄창) 초기화
     private void PoolInit()
@@ -48,7 +51,30 @@ public class BulletFactory : MonoBehaviour
             // 5. 비활성화한다.
             bulletObject.SetActive(false);
         }
+    }
 
+    private void Mini1PoolInit()
+    {
+        _miniBullet1ObjectPool = new GameObject[PoolSize];
+
+        for (int i = 0; i < PoolSize; i++)
+        {
+            GameObject bulletObject = Instantiate(MiniBullet1Prefab, transform);
+            _miniBullet1ObjectPool[i] = bulletObject;
+            bulletObject.SetActive(false);
+        }
+    }
+
+    private void Mini2PoolInit()
+    {
+        _miniBullet2ObjectPool = new GameObject[PoolSize];
+
+        for (int i = 0; i < PoolSize; i++)
+        {
+            GameObject bulletObject = Instantiate(MiniBullet2Prefab, transform);
+            _miniBullet2ObjectPool[i] = bulletObject;
+            bulletObject.SetActive(false);
+        }
     }
 
 
