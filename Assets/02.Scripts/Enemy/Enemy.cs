@@ -215,11 +215,13 @@ public class Enemy : MonoBehaviour
 
     private void EnemyKillScore()
     {
-        ScoreManager scoreManager = FindAnyObjectByType<ScoreManager>();
-        if (scoreManager != null)
-        {
-            scoreManager.AddScore(_killScore);
-        }
+        // 점수 관리자는 인스턴스가 단 하나다. 혹은 단 하나임을 보장해야 한다.
+        // 아무데서나 빠르게 접근하고 싶다.
+        // 싱글톤 패턴
+
+        ScoreManager.Instance.AddScore(_killScore);
+
+        // 관리자(Manager) -> 관리자의 인스턴스(객체)는 보통 하나
     }
 
     private void EnemyKilledSound()
