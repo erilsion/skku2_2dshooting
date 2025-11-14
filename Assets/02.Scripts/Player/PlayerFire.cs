@@ -35,7 +35,18 @@ public class PlayerFire : MonoBehaviour
     {
         _fireTimer += Time.deltaTime;
 
+        AutoSwitch();
 
+        Fire();
+
+        if (Input.GetKeyDown(SpecialAtteck) || Input.GetKeyDown(SpecialAtteck2))
+        {
+            SpecialAttackOn();
+        }
+    }
+
+    public void AutoSwitch()
+    {
         switch (Input.GetKeyDown(AutoAtteck) || Input.GetKeyDown(AutoAtteck2))
         {
             case true:
@@ -52,11 +63,10 @@ public class PlayerFire : MonoBehaviour
         {
             AutoFireOn();
         }
+    }
 
-        if (Input.GetKeyDown(SpecialAtteck) || Input.GetKeyDown(SpecialAtteck2))
-        {
-            SpecialAttackOn();
-        }
+    public void Fire()
+    {
 
         // 1. 발사 버튼을 누르고 있으면
         if (Input.GetKey(KeyCode.Space) && _fireTimer > Cooltime)
@@ -68,6 +78,7 @@ public class PlayerFire : MonoBehaviour
             _fireTimer = 0f;
         }
     }
+
     public void AutoFireOn()
     {
         if (_fireTimer > Cooltime)
