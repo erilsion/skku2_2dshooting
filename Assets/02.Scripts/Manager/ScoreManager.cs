@@ -1,6 +1,5 @@
 ﻿using DG.Tweening;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -37,9 +36,9 @@ public class ScoreManager : MonoBehaviour
     private Text _highScoreTextUI;
 
     private static int _currentScore = 0;
-    private static int _highScore = 0;
     public static int CurrentScore => _currentScore;
-    public static int HighScore => _highScore;
+
+    private static int _highScore = 0;
     private const string ScoreKey = "Score";
     private Vector2 _scoreEffect = new Vector2(1.3f, 1.3f);
     private Vector2 _scoreEffectOrigin = new Vector2(1f, 1f);

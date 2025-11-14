@@ -23,7 +23,7 @@ public class EnemySpawner : MonoBehaviour
     private float _enemyRate = 0.7f;
 
     [Header("보스 출현 조건")]
-    private float _bossSpawnScore = 1000f;
+    private float _bossSpawnScore = 300f;
     private float _nextBossSpawnScore = 5000f;
 
 

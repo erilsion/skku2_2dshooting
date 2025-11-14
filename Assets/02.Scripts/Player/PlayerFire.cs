@@ -73,11 +73,6 @@ public class PlayerFire : MonoBehaviour
         _fireTimer = 0f;
     }
 
-
-    // 총알 (프리팹) - 생성 로직이 바뀔 때마다 아래 모든 코드가 수정되어야한다.
-    // ㄴ 총알 생성이라는 행위 자체를 담당하는 클래스를 만들면 편하지 않을까? => 팩토리
-    // ㄴ 총알 생성기 (타입, 대미지, 위치, 생성이펙트); => 불렛팩토리
-
     private void MakeBullets()
     {
         BulletFactory.Instance.MakeBullet(FirePosition.position + new Vector3(+TwoBullet, 0, 0));

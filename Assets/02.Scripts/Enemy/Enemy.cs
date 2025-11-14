@@ -1,4 +1,4 @@
-﻿using TMPro;
+﻿using DG.Tweening;
 using UnityEngine;
 
 public enum EEnemytype
@@ -29,8 +29,10 @@ public class Enemy : MonoBehaviour
     private Vector2 BoomerangLeft = new Vector2(1f, 2f);
     private Vector2 BoomerangRight = new Vector2(-1f, 2f);
 
-    [Header("보스 위치")]
+    [Header("보스 관련")]
     private Vector2 _bossStop = new Vector2(0f, 3.5f);
+    private Vector2 _bossSize = new Vector2(1.2f, 1.2f);
+    private float _bossRiseTime = 1f;
 
     [Header("폭발 프리팹")]
     public GameObject ExplosionPrefab;
@@ -107,6 +109,7 @@ public class Enemy : MonoBehaviour
         }
         if (Type == EEnemytype.Boss)
         {
+            gameObject.transform.DOScale(_bossSize, _bossRiseTime);
             MoveBoss();
         }
     }

@@ -14,20 +14,21 @@ public class EnemyBulletFactory : MonoBehaviour
         }
         _instance = this;
 
-        BossPoolInit();
+        BulletPoolInit();
+        BigBulletPoolInit();
     }
 
 
     [Header("총알 프리팹")]
     public GameObject EnemyBulletPrefab;
-
+    public GameObject EnemyBigBulletPrefab;
 
     [Header("풀링")]
     public int PoolSize = 64;
     private GameObject[] _bulletObjectPool;
 
 
-    private void BossPoolInit()
+    private void BulletPoolInit()
     {
         _bulletObjectPool = new GameObject[PoolSize];
 
@@ -39,6 +40,17 @@ public class EnemyBulletFactory : MonoBehaviour
         }
     }
 
+    private void BigBulletPoolInit()
+    {
+        _bulletObjectPool = new GameObject[PoolSize];
+
+        for (int i = 0; i < PoolSize; i++)
+        {
+            GameObject bigBulletObject = Instantiate(EnemyBigBulletPrefab, transform);
+            _bulletObjectPool[i] = bigBulletObject;
+            bigBulletObject.SetActive(false);
+        }
+    }
 
     public GameObject MakeBullet(Vector3 position)
     {
@@ -61,6 +73,6 @@ public class EnemyBulletFactory : MonoBehaviour
 
     public GameObject MakeEnemyBullet(Vector3 position)
     {
-        return Instantiate(EnemyBulletPrefab, position, Quaternion.identity, transform);
+        return Instantiate(EnemyBulletPrefab, position, transform.rotation, transform);
     }
 }

@@ -10,14 +10,12 @@ public class EnemyBullet : MonoBehaviour
     [Header("총알 프리팹")]
     public EEnemyBulletType Type;
 
-
     [Header("이동 속도")]
     private float _startSpeed;
     private float _endSpeed;
     private float _speed;
     private float _duration;
     private float _acceleration;
-
 
     [Header("공격력")]
     private float _damage;
@@ -49,8 +47,8 @@ public class EnemyBullet : MonoBehaviour
 
     private void EnemyMainBullet()
     {
-        _startSpeed = 3f;
-        _endSpeed = 3f;
+        _startSpeed = 2f;
+        _endSpeed = 2f;
         _duration = 1f;
         _damage = 1f;
     }
@@ -58,17 +56,18 @@ public class EnemyBullet : MonoBehaviour
     private void EnemyBigBullet()
     {
         _startSpeed = 1f;
-        _endSpeed = 2.5f;
+        _endSpeed = 2f;
         _duration = 1.8f;
-        _damage = 3f;
+        _damage = 2f;
     }
+
     private void EnemyBulletMove()
     {
         _speed += Time.deltaTime * _acceleration;
 
         _speed = Mathf.Min(_speed, _endSpeed);
 
-        Vector2 direction = Vector2.down;
+        Vector2 direction = transform.position;
 
         Vector2 position = transform.position;
         Vector2 newPosition = position + direction * _speed * Time.deltaTime;
