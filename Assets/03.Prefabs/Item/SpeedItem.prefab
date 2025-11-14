@@ -169,6 +169,8 @@ MonoBehaviour:
   Type: 0
   value: 0.5
   ParticlePrefab: {fileID: 8771972552311404799, guid: bbf9e36a48d6c5648a13889afab076fd, type: 3}
+  _getItemSound: {fileID: 8300000, guid: 74234292e9f9d85408e2e9c06214449f, type: 3}
+  _getItemSoundVolume: 1
 --- !u!95 &5462659785860445681
 Animator:
   serializedVersion: 7

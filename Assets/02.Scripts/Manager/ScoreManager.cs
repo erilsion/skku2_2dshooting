@@ -3,18 +3,16 @@ using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 using DG.Tweening;
 
+[System.Serializable]
+public class  UserData
+{
+    public int currentScore;
+    public int highScore;
+}
 
 public class ScoreManager : MonoBehaviour
 {
-    // 응집도를 높혀라
-    // 응집도: '데이터'와 '데이터를 조작하는 로직'이 얼마나 잘 모여있냐
-    // 응집도를 높이고, 필요한 것만 외부에 공개하는 것을 '캡슐화'
 
-
-    // 목표: 적을 죽일 때마다 점수를 올리고, 현재 점수를 UI에 표시하고 싶다.
-    // 필요 속성: 현재 점수 UI(Text 컴포넌트), 현재 점수를 기억할 변수
-
-    // 규칙: UI 요소는 항상 변수명 뒤에 UI라고 붙인다.
     [SerializeField]
     private Text _currentScoreTextUI;
     [SerializeField]
@@ -62,29 +60,37 @@ public class ScoreManager : MonoBehaviour
 
     private void Save()
     {
-        // 유니티에서는 값을 저장할 때 'PlayerPrefs' 모듈을 쓴다.
-        // 저장 가능한 자료형은 int, float, string
-        // 저장을 할 때는 저장할 이름(key)과 값(value) 이 두 형태로 저장
-        // 저장: Set
-        // 로드: Get
+        UserData data = new UserData();
+        data.currentScore = _currentScore;
+        data.highScore = _highScore;
 
-        PlayerPrefs.SetInt(ScoreKey, _currentScore);
-        if (_currentScore >= _highScore)
-        {
-            PlayerPrefs.SetInt(ScoreKey, _highScore);
-        }
+        string json = JsonUtility.ToJson(data);
+
+        PlayerPrefs.SetString(ScoreKey, json);
+        PlayerPrefs.Save();
+
+        Debug.Log("점수 저장 완료: " + json);
     }
 
     private void Load()
     {
-        // int score = 0;
-        // if (PlayerPrefs.HasKey("score"))   // 값이 없을 경우 1. 검사
-        // {
-        //     score = PlayerPrefs.GetInt("score");
-        // }
+        if (PlayerPrefs.HasKey(ScoreKey))
+        {
+            string json = PlayerPrefs.GetString(ScoreKey);
 
-        // string name = PlayerPrefs.GetString("name", "티모");   // 2. default 인자
-        _highScore = PlayerPrefs.GetInt(ScoreKey, _highScore);
-        _currentScore = 0;
+            UserData data = JsonUtility.FromJson<UserData>(json);
+
+            _highScore = data.highScore;
+            _currentScore = 0;
+
+            Debug.Log("점수 불러오기 완료: " + json);
+        }
+        else
+        {
+            _highScore = 0;
+            _currentScore = 0;
+
+            Debug.Log("저장된 점수가 없어 새로 시작합니다.");
+        }
     }
 }

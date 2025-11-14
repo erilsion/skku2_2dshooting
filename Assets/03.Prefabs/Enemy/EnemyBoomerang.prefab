@@ -105,11 +105,14 @@ MonoBehaviour:
   Type: 2
   Speed: 0
   Damage: 1
+  ExplosionPrefab: {fileID: 0}
   ItemPrefabs:
   - {fileID: 7677222038300743173, guid: 10351dc3512c6b6448383484089b75e7, type: 3}
   - {fileID: 596372586444064239, guid: 4fb7cbd8c7ebb5d44a9b2af148f29078, type: 3}
   - {fileID: 7925050075807218036, guid: eb03268bff5b2f04ab542d45565e1538, type: 3}
   ItemWeights: 14000000460000000a000000
+  _enemyDeathSound: {fileID: 8300000, guid: ba16f937a8e1a1d459210b95f624180b, type: 3}
+  _enemyDeathSoundVolume: 1
 --- !u!50 &4374914453206830485
 Rigidbody2D:
   serializedVersion: 5

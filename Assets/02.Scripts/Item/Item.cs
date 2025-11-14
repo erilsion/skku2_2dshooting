@@ -1,12 +1,12 @@
 ﻿using Unity.VisualScripting;
 using UnityEngine;
+
 public enum EItemType
 {
     SpeedItem,
     HealthItem,
     AttackSpeedItem
 }
-
 
 public class Item : MonoBehaviour
 {
@@ -26,9 +26,14 @@ public class Item : MonoBehaviour
     private float _healthValue = 1f;
     private float _attackSpeedValue = 0.05f;
 
-    [Header("반짝이 프리팹")]
+    [Header("파티클 프리팹")]
     public GameObject ParticlePrefab;
 
+    [Header("사운드")]
+    [SerializeField]
+    private AudioClip _getItemSound;
+    [Range(0f, 1f)]
+    public float _getItemSoundVolume = 1f;
 
     void Start()
     {
@@ -42,6 +47,7 @@ public class Item : MonoBehaviour
         if (_timer < 2f) return;
         ItemMove();
     }
+
     private void ItemMove()
     {
         if (_playerObject == null) return;
@@ -71,6 +77,7 @@ public class Item : MonoBehaviour
                     PlayerMove _playerMove = other.gameObject.GetComponent<PlayerMove>();
                     _playerMove.SpeedUp(_speedValue);
                     MakeParticleEffect();
+                    MakeGetSoundEffect();
                     break;
                 }
             case EItemType.HealthItem:
@@ -78,6 +85,7 @@ public class Item : MonoBehaviour
                     Player _playerHealth = other.gameObject.GetComponent<Player>();
                     _playerHealth.HealthUp(_healthValue);
                     MakeParticleEffect();
+                    MakeGetSoundEffect();
                     break;
                 }
             case EItemType.AttackSpeedItem:
@@ -85,6 +93,7 @@ public class Item : MonoBehaviour
                     PlayerFire _playerAttackSpeed = other.GetComponent<PlayerFire>();
                     _playerAttackSpeed.AttackSpeedUp(_attackSpeedValue);
                     MakeParticleEffect();
+                    MakeGetSoundEffect();
                     break;
                 }
         }
@@ -92,5 +101,13 @@ public class Item : MonoBehaviour
     private void MakeParticleEffect()
     {
         Instantiate(ParticlePrefab, transform.position, Quaternion.identity);
+    }
+
+    private void MakeGetSoundEffect()
+    {
+        if (_getItemSound != null)
+        {
+            AudioSource.PlayClipAtPoint(_getItemSound, transform.position, _getItemSoundVolume);
+        }
     }
 }

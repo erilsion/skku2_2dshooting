@@ -14,8 +14,10 @@ public class PlayerFire : MonoBehaviour
 
     [Header("총구")]
     public Transform FirePosition;
+    public Transform SpecialAttackPosition;
     public Vector3 TwoBullet = new Vector2(0.5f, 0);  // FireOffset
     public Vector3 MiniBulletOffset = new Vector2(-1f, 0);  // 추후 수정에는 총구 따로 만드는 게 좋다.
+
 
     [Header("쿨타임")]
     private float _fireTimer = 0f;
@@ -31,6 +33,10 @@ public class PlayerFire : MonoBehaviour
     [Header("필살기 사용")]
     private KeyCode SpecialAtteck = KeyCode.Keypad3;
     private KeyCode SpecialAtteck2 = KeyCode.Alpha3;
+
+    [Header("사운드")]
+    public AudioSource FireSound;
+    public AudioSource SpecialAttackSound;
 
 
     private void Update()
@@ -57,14 +63,8 @@ public class PlayerFire : MonoBehaviour
 
         if (Input.GetKeyDown(SpecialAtteck) || Input.GetKeyDown(SpecialAtteck2))
         {
-            if (SpecialBombPrefab != null)
-            {
-                Instantiate(SpecialBombPrefab, Vector2.zero, Quaternion.identity);
-            }
-            else
-            {
-                Debug.LogWarning("필살기가 준비되지 않았습니다.");
-            }
+            SpecialAttackSound.Play();
+            SpecialAttackOn();
         }
 
         // 1. 발사 버튼을 누르고 있으면
@@ -100,6 +100,7 @@ public class PlayerFire : MonoBehaviour
         // 3. 총알 생성 후 위치를 플레이어 위치로 수정한다.
         bullet1.transform.position = FirePosition.position + TwoBullet;
         bullet2.transform.position = FirePosition.position - TwoBullet;
+        FireSound.Play();
     }
 
     private void MakeSubBullets()
@@ -116,4 +117,16 @@ public class PlayerFire : MonoBehaviour
         Cooltime -= value;
     }
 
+    public void SpecialAttackOn()
+    {
+        if (SpecialBombPrefab != null)
+        {
+            GameObject SpecialBomb = Instantiate(SpecialBombPrefab);
+            SpecialBomb.transform.position = SpecialAttackPosition.position;
+        }
+        else
+        {
+            Debug.Log("필살기가 준비되지 않았습니다.");
+        }
+    }
 }
