@@ -37,6 +37,11 @@ public class PlayerFire : MonoBehaviour
 
         AutoSwitch();
 
+        if (isAutoAtteck == true)
+        {
+            AutoFireOn();
+        }
+
         Fire();
 
         if (Input.GetKeyDown(SpecialAtteck) || Input.GetKeyDown(SpecialAtteck2))
@@ -59,22 +64,15 @@ public class PlayerFire : MonoBehaviour
                 break;
         }
 
-        if (isAutoAtteck == true)
-        {
-            AutoFireOn();
-        }
     }
 
     public void Fire()
     {
-
-        // 1. 발사 버튼을 누르고 있으면
         if (Input.GetKey(KeyCode.Space) && _fireTimer > Cooltime)
         {
             MakeBullets();
             MakeSubBullets();
 
-            // 4. 쿨타임 초기화
             _fireTimer = 0f;
         }
     }

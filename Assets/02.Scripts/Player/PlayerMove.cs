@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    [Header("조이스틱")]
+    public Joystick Joystick;
+
     [Header("애니메이터")]
     private Animator _animator;
 
@@ -82,8 +85,10 @@ public class PlayerMove : MonoBehaviour
 
     public void MoveOn()
     {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
+        // float h = Input.GetAxis("Horizontal");
+        // float v = Input.GetAxis("Vertical");
+        float h = Joystick.Horizontal;
+        float v = Joystick.Vertical;
 
 
         Vector2 direction = new Vector2(h, v);
