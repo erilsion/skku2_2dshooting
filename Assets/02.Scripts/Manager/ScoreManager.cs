@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
-using DG.Tweening;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 [System.Serializable]
 public class  UserData
@@ -12,6 +13,24 @@ public class  UserData
 
 public class ScoreManager : MonoBehaviour
 {
+    // ScoreManager는 단 하나여야 한다.
+    // 전역적인 접근점을 제공해야 한다.
+    // 게임 개발에서는 Manager(관리자) 클래스를 보통 싱글톤 패턴으로 사용하는 것이 관행이다.
+
+    private static ScoreManager _instance = null;  // 은닉화
+    public static ScoreManager Instance => _instance;  // Get 프로퍼티
+
+    private void Awake()
+    {
+        // 만약 ScoreManager가 두개다. => 랜덤하게 호출된다.
+        // 그렇기에 후발 주자는 삭제해버려야 한다.
+        if (_instance != null)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        _instance = this;
+    }
 
     [SerializeField]
     private Text _currentScoreTextUI;

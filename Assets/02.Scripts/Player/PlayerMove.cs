@@ -1,13 +1,15 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-// 플레이어 이동
+
 public class PlayerMove : MonoBehaviour
 {
+    [Header("애니메이터")]
     private Animator _animator;
-    // 필요 속성
+
     [Header("능력치")]
-    private float _speed = 3f;
+    private static float _speed = 3f;
+    public static float Speed => _speed;
 
     [Header("이동 제한 범위")]
     public float MinX = -2.5f;
