@@ -37,12 +37,12 @@ public class PlayerFire : MonoBehaviour
 
         AutoSwitch();
 
-        if (isAutoAtteck == true)
-        {
-            AutoFireOn();
-        }
+        if (_fireTimer < Cooltime) return;
 
-        Fire();
+        if (isAutoAtteck == true || Input.GetKey(KeyCode.Space))
+        {
+            Fire();
+        }
 
         if (Input.GetKeyDown(SpecialAtteck) || Input.GetKeyDown(SpecialAtteck2))
         {
@@ -68,25 +68,11 @@ public class PlayerFire : MonoBehaviour
 
     public void Fire()
     {
-        if (Input.GetKey(KeyCode.Space) && _fireTimer > Cooltime)
-        {
-            MakeBullets();
-            MakeSubBullets();
-
-            _fireTimer = 0f;
-        }
+        MakeBullets();
+        MakeSubBullets();
+        _fireTimer = 0f;
     }
 
-    public void AutoFireOn()
-    {
-        if (_fireTimer > Cooltime)
-        {
-            MakeBullets();
-            MakeSubBullets();
-
-            _fireTimer = 0f;
-        }
-    }
 
     // 총알 (프리팹) - 생성 로직이 바뀔 때마다 아래 모든 코드가 수정되어야한다.
     // ㄴ 총알 생성이라는 행위 자체를 담당하는 클래스를 만들면 편하지 않을까? => 팩토리
