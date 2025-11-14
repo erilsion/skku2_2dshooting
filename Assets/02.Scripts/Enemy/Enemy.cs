@@ -5,7 +5,8 @@ public enum EEnemytype
 {
     Directional,
     Trace,
-    Boomerang
+    Boomerang,
+    Boss
 }
 
 public class Enemy : MonoBehaviour
@@ -20,11 +21,16 @@ public class Enemy : MonoBehaviour
 
     [Header("시작 위치")]
     private Vector3 _originPosition;
-    private Vector2 BoomerangLeft = new Vector2 (1f, 2f);
-    private Vector2 BoomerangRight = new Vector2(-1f, 2f);
 
     [Header("플레이어 위치")]
     private GameObject _playerObject;
+
+    [Header("부메랑 위치")]
+    private Vector2 BoomerangLeft = new Vector2(1f, 2f);
+    private Vector2 BoomerangRight = new Vector2(-1f, 2f);
+
+    [Header("보스 위치")]
+    private Vector2 _bossStop = new Vector2(0f, 3.5f);
 
     [Header("폭발 프리팹")]
     public GameObject ExplosionPrefab;
@@ -36,6 +42,8 @@ public class Enemy : MonoBehaviour
     private float _traceHealth = 240f;
     private float _boomerangSpeed = 4f;
     private float _boomerangHealth = 60f;
+    private float _bossSpeed = 5f;
+    private float _bossHealth = 1000f;
 
     [Header("아이템 드랍")]
     public GameObject[] ItemPrefabs;
@@ -76,6 +84,10 @@ public class Enemy : MonoBehaviour
                 Speed = _boomerangSpeed;
                 _health = _boomerangHealth;
                 break;
+            case EEnemytype.Boss:
+                Speed = _bossSpeed;
+                _health = _bossHealth;
+                break;
         }
     }
 
@@ -93,7 +105,10 @@ public class Enemy : MonoBehaviour
         {
             BoomerangRoutine();
         }
-
+        if (Type == EEnemytype.Boss)
+        {
+            MoveBoss();
+        }
     }
 
     private void MoveDirectional()
@@ -117,7 +132,6 @@ public class Enemy : MonoBehaviour
     private void BoomerangRoutine()
     {
         BoomerangEnter();
-       // BoomerangAttack();
     }
 
 
@@ -208,10 +222,12 @@ public class Enemy : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, BoomerangStop, Speed * Time.deltaTime);
     }
 
-    private void BoomerangAttack()
+    private void MoveBoss()
     {
-
+        Vector2 BossStop = _bossStop;
+        transform.position = Vector2.MoveTowards(transform.position, BossStop, Speed * Time.deltaTime);
     }
+
 
     private void EnemyKillScore()
     {
@@ -231,4 +247,5 @@ public class Enemy : MonoBehaviour
             AudioSource.PlayClipAtPoint(_enemyDeathSound, transform.position, _enemyDeathSoundVolume);
         }
     }
+
 }

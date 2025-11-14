@@ -8,6 +8,9 @@ public class EnemySpawner : MonoBehaviour
     public Transform SpawnerPosition;
     public float SpawnRangeX = 1.8f;
 
+    [Header("보스 출현 위치")]
+    private Vector3 _bossStartPosition;
+
     [Header("쿨타임")]
     private float _timer = 0f;
     private float _cooltime;
@@ -19,9 +22,14 @@ public class EnemySpawner : MonoBehaviour
     private float _minRate = 0f;
     private float _enemyRate = 0.7f;
 
+    [Header("보스 출현 조건")]
+    private float _bossSpawnScore = 300f;
+    private float _nextBossSpawnScore = 5000f;
+
 
     private void Start()
     {
+        _bossStartPosition = SpawnerPosition.position;
         float randomNumber = UnityEngine.Random.Range(_minTime, _maxTime);
         _cooltime = randomNumber;
     }
@@ -29,6 +37,12 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
         _timer += Time.deltaTime;
+
+        if (ScoreManager.CurrentScore >= _bossSpawnScore)
+        {
+            _bossSpawnScore += _nextBossSpawnScore;
+            BossSpawn();
+        }
 
         if (_timer <= _cooltime) return;
 
@@ -63,5 +77,11 @@ public class EnemySpawner : MonoBehaviour
         float randomNumber = UnityEngine.Random.Range(_minTime, _maxTime);
         _cooltime = randomNumber;
         _timer = 0f;
+    }
+
+    private void BossSpawn()
+    {
+        SpawnerPosition.position = _bossStartPosition;
+        EnemyFactory.Instance.MakeEnemyBoss(SpawnerPosition.position);
     }
 }

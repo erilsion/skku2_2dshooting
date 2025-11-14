@@ -37,8 +37,10 @@ public class ScoreManager : MonoBehaviour
     [SerializeField]
     private Text _highScoreTextUI;
 
-    private int _currentScore = 0;
-    private int _highScore = 0;
+    private static int _currentScore = 0;
+    private static int _highScore = 0;
+    public static int CurrentScore => _currentScore;
+    public static int HighScore => _highScore;
     private const string ScoreKey = "Score";
     private Vector2 _scoreEffect = new Vector2(1.3f, 1.3f);
     private Vector2 _scoreEffectOrigin = new Vector2(1f, 1f);

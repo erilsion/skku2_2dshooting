@@ -28,7 +28,7 @@ public class BulletFactory : MonoBehaviour
 
 
     [Header("풀링")]
-    public int PoolSize = 30;
+    public int PoolSize = 64;
     private GameObject[] _bulletObjectPool;  // 게임 총알을 담아둘 풀: 탄창
     private GameObject[] _miniBullet1ObjectPool;
     private GameObject[] _miniBullet2ObjectPool;

@@ -22,7 +22,7 @@ public class EnemyFactory : MonoBehaviour
     public GameObject[] EnemyPrefab;
 
     [Header("풀링")]
-    public int PoolSize = 20;
+    public int PoolSize = 30;
     private GameObject[] _enemyObjectPool;
     private GameObject[] _enemyTraceObjectPool;
 
@@ -40,12 +40,12 @@ public class EnemyFactory : MonoBehaviour
 
     private void TracePoolInit()
     {
-        _enemyObjectPool = new GameObject[PoolSize];
+        _enemyTraceObjectPool = new GameObject[PoolSize];
 
         for (int i = 0; i < PoolSize; i++)
         {
             GameObject enemyTraceObject = Instantiate(EnemyPrefab[(int)EEnemytype.Trace], transform);
-            _enemyObjectPool[i] = enemyTraceObject;
+            _enemyTraceObjectPool[i] = enemyTraceObject;
             enemyTraceObject.SetActive(false);
         }
     }
@@ -59,5 +59,10 @@ public class EnemyFactory : MonoBehaviour
     public GameObject MakeEnemyTrace(Vector3 position)
     {
         return Instantiate(EnemyPrefab[(int)EEnemytype.Trace], position, Quaternion.identity, transform);
+    }
+
+    public GameObject MakeEnemyBoss(Vector3 position)
+    {
+        return Instantiate(EnemyPrefab[(int)EEnemytype.Boss], position, Quaternion.identity, transform);
     }
 }
