@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3807678910556162765}
   - component: {fileID: 1535122318684096853}
+  - component: {fileID: 6745471896810430848}
   m_Layer: 0
   m_Name: EnemyBullet
   m_TagString: Untagged
@@ -87,3 +88,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6745471896810430848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3113537273295004032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b529252d5b1db4aa68a1f224c34e8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 0

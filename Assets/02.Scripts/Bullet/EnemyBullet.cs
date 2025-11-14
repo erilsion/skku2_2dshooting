@@ -1,51 +1,79 @@
 ﻿using UnityEngine;
-public enum EEnemyBullettype
+public enum EEnemyBulletType
 {
-    EnemyBullet,
+    EnemyMainBullet,
     EnemyBigBullet
 }
 
 public class EnemyBullet : MonoBehaviour
 {
     [Header("총알 프리팹")]
-    public EBullettype Type;
+    public EEnemyBulletType Type;
 
 
     [Header("이동 속도")]
-    public float StartSpeed;
-    public float EndSpeed;
+    private float _startSpeed;
+    private float _endSpeed;
     private float _speed;
-    public float Duration;
+    private float _duration;
+    private float _acceleration;
 
 
     [Header("공격력")]
-    public float Damage;
+    private float _damage;
+
+    [Header("플레이어 위치")]
+    private GameObject _playerObject;
 
 
     private void Start()
     {
-        _speed = StartSpeed;
+        _playerObject = GameObject.FindWithTag("Player");
+        _speed = _startSpeed;
+        _acceleration = (_endSpeed - _startSpeed) / _duration;
     }
 
     void Update()
     {
-        
+        if (Type == EEnemyBulletType.EnemyMainBullet)
+        {
+            EnemyMainBullet();
+        }
+        if (Type == EEnemyBulletType.EnemyBigBullet)
+        {
+            EnemyBigBullet();
+        }
+
+        EnemyBulletMove();
     }
 
     private void EnemyMainBullet()
     {
-        _speed = 3f;
-        Damage = 20f;
-
+        _startSpeed = 3f;
+        _endSpeed = 3f;
+        _duration = 1f;
+        _damage = 1f;
     }
 
     private void EnemyBigBullet()
     {
-        _speed = 2.5f;
-        Damage = 60f;
-
+        _startSpeed = 1f;
+        _endSpeed = 2.5f;
+        _duration = 1.8f;
+        _damage = 3f;
     }
+    private void EnemyBulletMove()
+    {
+        _speed += Time.deltaTime * _acceleration;
 
+        _speed = Mathf.Min(_speed, _endSpeed);
+
+        Vector2 direction = Vector2.down;
+
+        Vector2 position = transform.position;
+        Vector2 newPosition = position + direction * _speed * Time.deltaTime;
+        transform.position = newPosition;
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -53,8 +81,8 @@ public class EnemyBullet : MonoBehaviour
 
         Player Player = other.gameObject.GetComponent<Player>();
 
-        Player.Hit(Damage);
-        Debug.Log($"{Damage} 대미지를 받았다!");
+        Player.Hit(_damage);
+        Debug.Log($"{_damage} 대미지를 받았다!");
 
         Destroy(gameObject);
     }

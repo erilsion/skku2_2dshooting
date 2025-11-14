@@ -247,5 +247,4 @@ public class Enemy : MonoBehaviour
             AudioSource.PlayClipAtPoint(_enemyDeathSound, transform.position, _enemyDeathSoundVolume);
         }
     }
-
 }

@@ -33,6 +33,7 @@ public class BulletFactory : MonoBehaviour
     private GameObject[] _miniBullet1ObjectPool;
     private GameObject[] _miniBullet2ObjectPool;
 
+
     // 풀(탄창) 초기화
     private void PoolInit()
     {
@@ -45,6 +46,7 @@ public class BulletFactory : MonoBehaviour
         {
             // 3. 총알을 생성해서 담는다.
             GameObject bulletObject = Instantiate(BulletPrefab, transform);
+
             // 4. 생성한 총알을 탄창에 담는다.
             _bulletObjectPool[i] = bulletObject;
 
@@ -98,7 +100,7 @@ public class BulletFactory : MonoBehaviour
             }
         }
 
-        Debug.LogError("탄창에 총알 개수가 부족합니다. [ㅇㅇㅇ를 찾아주세요.]");
+        Debug.LogError("탄창에 총알 개수가 부족합니다.");
         return null;
     }
 
