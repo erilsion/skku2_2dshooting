@@ -64,14 +64,15 @@ public class EnemyBullet : MonoBehaviour
     private void EnemyBulletMove()
     {
         _speed += Time.deltaTime * _acceleration;
-
         _speed = Mathf.Min(_speed, _endSpeed);
 
-        Vector2 direction = transform.position;
+        if (_playerObject == null) return;
+        Vector2 playerPosition = _playerObject.transform.position;
 
-        Vector2 position = transform.position;
-        Vector2 newPosition = position + direction * _speed * Time.deltaTime;
-        transform.position = newPosition;
+        Vector2 direction = playerPosition - (Vector2)transform.position;
+        direction = direction.normalized;
+
+        transform.Translate(direction * (_speed * Time.deltaTime));
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -83,6 +84,6 @@ public class EnemyBullet : MonoBehaviour
         Player.Hit(_damage);
         Debug.Log($"{_damage} 대미지를 받았다!");
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

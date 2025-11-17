@@ -24,7 +24,7 @@ public class EnemyBulletFactory : MonoBehaviour
     public GameObject EnemyBigBulletPrefab;
 
     [Header("풀링")]
-    public int PoolSize = 64;
+    public int PoolSize = 32;
     private GameObject[] _bulletObjectPool;
 
 

@@ -1,11 +1,12 @@
 ﻿using DG.Tweening;
 using UnityEngine;
+using System.Collections;
 
 public enum EEnemytype
 {
     Directional,
     Trace,
-    Boomerang,
+    Boomerang,  // 부메랑 적 미구현
     Boss
 }
 
@@ -25,7 +26,7 @@ public class Enemy : MonoBehaviour
     [Header("플레이어 위치")]
     private GameObject _playerObject;
 
-    [Header("부메랑 위치")]
+    [Header("부메랑 위치")]  // 부메랑 적 미구현
     private Vector2 BoomerangLeft = new Vector2(1f, 2f);
     private Vector2 BoomerangRight = new Vector2(-1f, 2f);
 
@@ -55,6 +56,7 @@ public class Enemy : MonoBehaviour
 
     [Header("애니메이션 관련")]
     private Animator _animator;
+    private float _hitAnimationDuration;
 
     [Header("점수 관련")]
     private int _killScore = 100;
@@ -70,6 +72,7 @@ public class Enemy : MonoBehaviour
     {
         _playerObject = GameObject.FindWithTag("Player");
         _animator = gameObject.GetComponent<Animator>();
+        _hitAnimationDuration = 0.1f;
 
 
         switch (Type)
@@ -82,7 +85,7 @@ public class Enemy : MonoBehaviour
                 Speed = _traceSpeed;
                 _health = _traceHealth;
                 break;
-            case EEnemytype.Boomerang:
+            case EEnemytype.Boomerang:  // 부메랑 적 미구현
                 Speed = _boomerangSpeed;
                 _health = _boomerangHealth;
                 break;
@@ -95,7 +98,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if(Type == EEnemytype.Directional)
+        if (Type == EEnemytype.Directional)
         {
             MoveDirectional();
         }
@@ -103,7 +106,7 @@ public class Enemy : MonoBehaviour
         {
             MoveTrace();
         }
-        if (Type == EEnemytype.Boomerang)
+        if (Type == EEnemytype.Boomerang)  // 부메랑 적 미구현
         {
             BoomerangRoutine();
         }
@@ -132,12 +135,6 @@ public class Enemy : MonoBehaviour
         transform.Translate(direction * (Speed * Time.deltaTime));
     }
 
-    private void BoomerangRoutine()
-    {
-        BoomerangEnter();
-    }
-
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player") == false) return;
@@ -151,13 +148,20 @@ public class Enemy : MonoBehaviour
     public void Hit(float damage)
     {
         _health -= damage;
+
         if (_animator != null)
         {
-            _animator.SetInteger("x", 1);
-            _animator.SetInteger("x", 0);
+            HitAnimationRoutine();
         }
 
         Death();
+    }
+
+    IEnumerator HitAnimationRoutine()
+    {
+        _animator.Play("Hit");
+        yield return new WaitForSeconds(_hitAnimationDuration);
+        _animator.Play("Idle");
     }
 
     private void Death()
@@ -208,29 +212,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void BoomerangEnter()
-    {
-        Vector2 BoomerangStop;
-        _originPosition = transform.position;
-
-        if (_originPosition.x > 0)
-        {
-            BoomerangStop = BoomerangLeft;
-        }
-        else
-        {
-            BoomerangStop = BoomerangRight;
-        }
-
-        transform.position = Vector2.MoveTowards(transform.position, BoomerangStop, Speed * Time.deltaTime);
-    }
-
     private void MoveBoss()
     {
         Vector2 BossStop = _bossStop;
         transform.position = Vector2.MoveTowards(transform.position, BossStop, Speed * Time.deltaTime);
     }
-
 
     private void EnemyKillScore()
     {
@@ -249,5 +235,31 @@ public class Enemy : MonoBehaviour
         {
             AudioSource.PlayClipAtPoint(_enemyDeathSound, transform.position, _enemyDeathSoundVolume);
         }
+    }
+
+
+
+
+
+    private void BoomerangRoutine()
+    {
+        BoomerangEnter();
+    }
+
+    private void BoomerangEnter()
+    {
+        Vector2 BoomerangStop;
+        _originPosition = transform.position;
+
+        if (_originPosition.x > 0)
+        {
+            BoomerangStop = BoomerangLeft;
+        }
+        else
+        {
+            BoomerangStop = BoomerangRight;
+        }
+
+        transform.position = Vector2.MoveTowards(transform.position, BoomerangStop, Speed * Time.deltaTime);
     }
 }
